@@ -10,9 +10,9 @@ public class Renderer {
     private Canvas canvas;
     private GraphicsContext gc;
 
-    public Renderer(Rectangle2D screenBorder) {
-        canvas = new Canvas(screenBorder.getWidth(), screenBorder.getHeight());
-        gc = canvas.getGraphicsContext2D();
+    public Renderer(Canvas canvas) {
+        this.canvas = canvas;
+        this.gc = this.canvas.getGraphicsContext2D();
     }
     
     public void render(Image image, double x, double y, double w, double h) {

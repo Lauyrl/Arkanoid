@@ -3,27 +3,33 @@ import game.Entities.Ball;
 import game.Renderering.Renderer;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.scene.canvas.Canvas;
 import javafx.stage.Stage;
 // Singleton
 public class GameEngine {
     private static GameEngine instance = null;
     private GameState gameState;
-    private Renderer renderer;
+    private Renderer backgroundRenderer;
+    private Renderer entityRenderer;
+    private Renderer uiRenderer;
+    //framerate restriction
     private long lastFrame;
     private final long interval = 1000000000 / 60;
     // test
     private boolean ballSpawned;
     private Ball ball; 
 
-    private GameEngine(Renderer renderer) {
+    private GameEngine(Canvas backgroundCanvas, Canvas entityCanvas, Canvas uiCanvas) {
         gameState = GameState.BALL_TEST;
-        this.renderer = renderer;
-        lastFrame = 0;
+        backgroundRenderer = new Renderer(backgroundCanvas);
+        entityRenderer = new Renderer(entityCanvas);
+        uiRenderer = new Renderer(uiCanvas);
         ballSpawned = false;
+        lastFrame = 0;
     }
 
-    public static GameEngine getInstance(Renderer renderer) {
-        if (instance == null) instance = new GameEngine(renderer);
+    public static GameEngine getInstance(Canvas backgroundCanvas, Canvas entityCanvas, Canvas uiCanvas) {
+        if (instance == null) instance = new GameEngine(backgroundCanvas, entityCanvas, uiCanvas);
         return instance;
     }
     // vongf lặp chính
@@ -31,6 +37,7 @@ public class GameEngine {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                // vòng lặp không chạy quá 60 lần/giây
                 if (now - lastFrame >= interval) {
                     lastFrame = now;
                     if (gameState == GameState.BALL_TEST) {
@@ -49,9 +56,9 @@ public class GameEngine {
             ballSpawned = true;
         }
         ball.update();
-        renderer.clearCanvas();
-        renderer.renderStrokeRect();
-        renderer.render(ball.getSprite(), ball.getX(), ball.getY(), ball.getWidth(), ball.getHeight());
+        entityRenderer.clearCanvas();
+        entityRenderer.renderStrokeRect();
+        entityRenderer.render(ball.getSprite(), ball.getX(), ball.getY(), ball.getWidth(), ball.getHeight());
     }
 
     public enum GameState {
