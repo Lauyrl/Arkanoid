@@ -10,16 +10,10 @@ import javafx.stage.Stage;
 public class GameEngine {
     private static GameEngine instance = null;
     private GameState gameState;
-    private Renderer backgroundRenderer;
-    private Renderer entityRenderer;
-    private Renderer uiRenderer;
     private LevelLoader levelLoader;
     //framerate restriction
-    private long lastFrame;
+    private long lastFrame = 0;
     private final long interval = 1000000000 / 60;
-    // test
-    private boolean ballSpawned;
-    private Ball ball; 
 
     public enum GameState {
         START_MENU, MODE_SELECT, LEVEL_SELECT, LEVEL, BALL_TEST
@@ -27,19 +21,14 @@ public class GameEngine {
 
     private GameEngine(Canvas backgroundCanvas, Canvas entityCanvas, Canvas uiCanvas) {
         gameState = GameState.BALL_TEST;
-        backgroundRenderer = new Renderer(backgroundCanvas);
-        entityRenderer = new Renderer(entityCanvas);
-        uiRenderer = new Renderer(uiCanvas);
-        levelLoader = new LevelLoader();
-        ballSpawned = false;
-        lastFrame = 0;
+        levelLoader = new LevelLoader(entityCanvas);
     }
 
     public static GameEngine getInstance(Canvas backgroundCanvas, Canvas entityCanvas, Canvas uiCanvas) {
         if (instance == null) instance = new GameEngine(backgroundCanvas, entityCanvas, uiCanvas);
         return instance;
     }
-    // vongf lặp chính
+    // vong lặp chính
     public void run() {
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -47,10 +36,9 @@ public class GameEngine {
                 // vòng lặp không chạy quá 60 lần/giây
                 if (now - lastFrame >= interval) {
                     lastFrame = now;
-                    if      (gameState == GameState.BALL_TEST) {
-                        runTest();
+                    if (gameState == GameState.LEVEL) {
+                        levelLoader.updateLevel();
                     }
-                    //else if (gameState == GameState.LEVEL) {}
                 }    
                     
             }
@@ -59,19 +47,9 @@ public class GameEngine {
     }
 
     public void changeState(GameState gameState) {
+        this.gameState = gameState;
         if (gameState == GameState.LEVEL) {
-            levelLoader.loadLevel();
+            levelLoader.loadLevel("");
         }
-    }
-    //test
-    private void runTest() {
-        if (ballSpawned == false) {
-            ball = new Ball();
-            ballSpawned = true;
-        }
-        ball.update();
-        entityRenderer.clearCanvas();
-        entityRenderer.renderStrokeRect();
-        entityRenderer.render(ball.getSprite(), ball.getX(), ball.getY(), ball.getWidth(), ball.getHeight());
     }
 }
