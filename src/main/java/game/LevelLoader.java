@@ -11,6 +11,7 @@ public class LevelLoader {
     private ArrayList<Entity> entityList;
     private Renderer entityRenderer;
     private class JsonInputUtil {
+        // phải giống với các trường trong file json
         String type;
         double x, y;
     }

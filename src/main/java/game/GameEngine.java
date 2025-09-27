@@ -1,11 +1,7 @@
 package game;
-import game.Entities.Ball;
-import game.Renderering.Renderer;
-import java.util.logging.Level;
+
 import javafx.animation.AnimationTimer;
-import javafx.application.Application;
 import javafx.scene.canvas.Canvas;
-import javafx.stage.Stage;
 // Singleton
 public class GameEngine {
     private static GameEngine instance = null;

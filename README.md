@@ -1,19 +1,22 @@
-Phiên bản JavaFX: 25
-
-Phiên bản Maven: 3.9.11 \
+### Phiên bản JavaFX: 25
+### Phiên bản Gson: 2.13.2
+### Phiên bản Maven: 3.9.11  
 `mvn javafx:run` để chạy game
 
-Cách commit: \
-git checkout -b {ten cua branch tam thoi} \
-git add {nhung file muon commit} \
-git commit -m " ... " \
+## Cách commit:  
+git checkout -b [tên branch tạm thời]  
+git add [file muốn commit] (phân loại file theo chức năng, rồi chia thành nhiều commit)  
+git commit -m " ... " (commit từng phần dần trên branch đó, khi nào xong hết rồi mới push)  
 
-git push origin {ten cua branch tam thoi} \
+## Cách push và merge:  
+git push origin [tên branch tạm thời]  
+git checkout main (quay lại nhánh main)  
+git branch -d [tên branch tạm thời] (xoá branch tạm thời khỏi máy)  
 
-quay lai main: \
-git checkout main \
-git branch -d {ten cua branch tam thoi} \ (xoa branch tam thoi neu muon)
+## Nguồn tham khảo:  
+### Về StackPane:   
+https://www.geeksforgeeks.org/java/javafx-stackpane-class/
 
-Nguồn tham khảo: \
-https://stackoverflow.com/questions/38636254/how-to-convert-json-to-java-object-using-gson \
-https://www.geeksforgeeks.org/java/javafx-stackpane-class/ 
+### Về Gson:  
+https://stackoverflow.com/questions/38636254/  
+https://stackoverflow.com/questions/3763937/gson-and-deserializing-an-array-of-objects-with-arrays-in-it
