@@ -5,8 +5,9 @@ Phiên bản Maven: 3.9.11 \
 
 Cách commit: \
 git checkout -b {ten cua branch tam thoi} \
-git add .  (stage tat ca thay doi) \
+git add {nhung file muon commit} \
 git commit -m " ... " \
+
 git push origin {ten cua branch tam thoi} \
 
 quay lai main: \
