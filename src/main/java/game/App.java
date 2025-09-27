@@ -1,5 +1,6 @@
 package game;
 
+import game.GameEngine.GameState;
 import game.Renderering.Renderer;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -33,6 +34,7 @@ public class App extends Application {
         stage.show();
         //GameEngine quản lí logic game
         GameEngine engine = GameEngine.getInstance(backgroundCanvas, entityCanvas, uiCanvas);
+        engine.changeState(GameState.LEVEL);
         engine.run();
     }
     

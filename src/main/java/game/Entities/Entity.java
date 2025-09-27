@@ -2,7 +2,7 @@ package game.Entities;
 
 import javafx.scene.image.Image;
 
-public class Entity {
+public abstract class Entity {
     private Image sprite;
     private double x, y, w, h;
     
@@ -45,4 +45,6 @@ public class Entity {
     public void setHeight(double h) {
         this.h = h;
     }
+
+    public abstract void update();
 }

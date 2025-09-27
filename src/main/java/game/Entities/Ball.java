@@ -8,10 +8,10 @@ import javafx.scene.shape.Rectangle;
 public class Ball extends Entity {
     private double velX, velY;
     
-    public Ball() {
+    public Ball(double x, double y) {
         setSprite(new Image(getClass().getResourceAsStream("/assets/Ball.png")));
-        setX(300);
-        setY(300);
+        setX(x);
+        setY(y);
         setWidth(20);
         setHeight(20);
         velX = 10;
