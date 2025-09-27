@@ -1,6 +1,7 @@
 package game;
 import game.Entities.Ball;
 import game.Renderering.Renderer;
+import java.util.logging.Level;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.canvas.Canvas;
@@ -12,6 +13,7 @@ public class GameEngine {
     private Renderer backgroundRenderer;
     private Renderer entityRenderer;
     private Renderer uiRenderer;
+    private LevelLoader levelLoader;
     //framerate restriction
     private long lastFrame;
     private final long interval = 1000000000 / 60;
@@ -19,11 +21,16 @@ public class GameEngine {
     private boolean ballSpawned;
     private Ball ball; 
 
+    public enum GameState {
+        START_MENU, MODE_SELECT, LEVEL_SELECT, LEVEL, BALL_TEST
+    }
+
     private GameEngine(Canvas backgroundCanvas, Canvas entityCanvas, Canvas uiCanvas) {
         gameState = GameState.BALL_TEST;
         backgroundRenderer = new Renderer(backgroundCanvas);
         entityRenderer = new Renderer(entityCanvas);
         uiRenderer = new Renderer(uiCanvas);
+        levelLoader = new LevelLoader();
         ballSpawned = false;
         lastFrame = 0;
     }
@@ -40,14 +47,21 @@ public class GameEngine {
                 // vòng lặp không chạy quá 60 lần/giây
                 if (now - lastFrame >= interval) {
                     lastFrame = now;
-                    if (gameState == GameState.BALL_TEST) {
+                    if      (gameState == GameState.BALL_TEST) {
                         runTest();
                     }
+                    //else if (gameState == GameState.LEVEL) {}
                 }    
                     
             }
         };
         timer.start();
+    }
+
+    public void changeState(GameState gameState) {
+        if (gameState == GameState.LEVEL) {
+            levelLoader.loadLevel();
+        }
     }
     //test
     private void runTest() {
@@ -59,9 +73,5 @@ public class GameEngine {
         entityRenderer.clearCanvas();
         entityRenderer.renderStrokeRect();
         entityRenderer.render(ball.getSprite(), ball.getX(), ball.getY(), ball.getWidth(), ball.getHeight());
-    }
-
-    public enum GameState {
-        START_MENU, MODE_SELECT, LEVEL_SELECT, LEVEL, BALL_TEST
     }
 }
