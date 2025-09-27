@@ -1,9 +1,6 @@
 package game.Entities;
 
-import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class Ball extends Entity {
     private double velX, velY;
@@ -18,6 +15,7 @@ public class Ball extends Entity {
         velY = 10;
     }
 
+    @Override
     public void update() {
         setX(getX() + velX);
         setY(getY() + velY);

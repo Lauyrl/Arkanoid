@@ -1,7 +1,6 @@
 package game;
 
 import game.GameEngine.GameState;
-import game.Renderering.Renderer;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
