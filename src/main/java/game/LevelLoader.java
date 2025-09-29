@@ -11,7 +11,6 @@ public class LevelLoader {
     private ArrayList<Entity> staticEntityList;
     private ArrayList<Entity> movingEntityList;
     private Renderer entityRenderer;
-    private CollisionHandler collisionHandler;
     private class JsonInputUtil {
         // phải giống với các trường trong file json
         String type;
@@ -26,7 +25,7 @@ public class LevelLoader {
 
     private JsonInputUtil[] getLevelData(String levelId) {
         Gson gson = new Gson();
-        InputStreamReader reader = new InputStreamReader(getClass().getResourceAsStream("/Level_data.json"));
+        InputStreamReader reader = new InputStreamReader(getClass().getResourceAsStream("/Level_datatest.json"));
         return gson.fromJson(reader, JsonInputUtil[].class);
     }
 
@@ -47,11 +46,32 @@ public class LevelLoader {
 
     public void updateLevel() {
         entityRenderer.clearCanvas();
-        entityRenderer.renderStrokeRect();
         handleCollision();
+        for (Entity e : movingEntityList) {
+            e.update(1);
+            entityRenderer.render(e);
+        }
+        for (Entity e : staticEntityList) {
+            entityRenderer.render(e);
+        }
     }
 
     private void handleCollision() {
-        
+        for (int t = 0; t < 3; t++) {
+            for (Entity ball : movingEntityList) {
+                for (Entity wall : staticEntityList) {
+                    if (CollisionHandler.overlaps(ball, wall) == true) {
+                        CollisionHandler.resolveCollision((Ball) ball, wall);
+                    }
+                }
+            }
+            for (int i = 0; i < movingEntityList.size(); i++) {
+                for (int j = i+1; j < movingEntityList.size(); j++) {
+                    if (CollisionHandler.overlaps(movingEntityList.get(i), movingEntityList.get(j)) == true) {
+                        CollisionHandler.resolveCollision((Ball) movingEntityList.get(i), movingEntityList.get(j));
+                    }
+                }
+            }
+        }
     }
 }
