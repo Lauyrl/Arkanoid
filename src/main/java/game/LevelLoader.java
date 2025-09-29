@@ -25,7 +25,7 @@ public class LevelLoader {
 
     private JsonInputUtil[] getLevelData(String levelId) {
         Gson gson = new Gson();
-        InputStreamReader reader = new InputStreamReader(getClass().getResourceAsStream("/Level_datatest.json"));
+        InputStreamReader reader = new InputStreamReader(getClass().getResourceAsStream("/Level_data.json"));
         return gson.fromJson(reader, JsonInputUtil[].class);
     }
 
@@ -57,7 +57,7 @@ public class LevelLoader {
     }
 
     private void handleCollision() {
-        for (int t = 0; t < 3; t++) {
+        for (int t = 0; t < 2; t++) {
             for (Entity ball : movingEntityList) {
                 for (Entity wall : staticEntityList) {
                     if (CollisionHandler.overlaps(ball, wall) == true) {
@@ -68,7 +68,7 @@ public class LevelLoader {
             for (int i = 0; i < movingEntityList.size(); i++) {
                 for (int j = i+1; j < movingEntityList.size(); j++) {
                     if (CollisionHandler.overlaps(movingEntityList.get(i), movingEntityList.get(j)) == true) {
-                        CollisionHandler.resolveCollision((Ball) movingEntityList.get(i), movingEntityList.get(j));
+                        CollisionHandler.resolveCollision((Ball) movingEntityList.get(i), (Ball) movingEntityList.get(j));
                     }
                 }
             }
