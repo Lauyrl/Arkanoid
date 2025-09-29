@@ -26,6 +26,29 @@ public abstract class Entity {
         return h;
     }
 
+    public double getLeftBound() {
+        return x;
+    }
+
+    public double getRightBound() {
+        return x + w;
+    }
+    
+    public double getTopBound() {
+        return y;
+    }
+
+    public double getBottomBound() {
+        return y + h;
+    }
+
+    public double[] getCenter() {
+        double[] center = new double[2];
+        center[0] = (x + w) / 2;
+        center[1] = (y + h) / 2;
+        return center;
+    }
+
     public void setSprite(Image image){
         sprite = image;
     }
@@ -46,5 +69,5 @@ public abstract class Entity {
         this.h = h;
     }
 
-    public abstract void update();
+    public abstract void update(double frameTime);
 }

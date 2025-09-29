@@ -8,17 +8,20 @@ import game.Entities.*;
 import game.Renderering.Renderer;
 
 public class LevelLoader {
-    private ArrayList<Entity> entityList;
+    private ArrayList<Entity> staticEntityList;
+    private ArrayList<Entity> movingEntityList;
     private Renderer entityRenderer;
+    private CollisionHandler collisionHandler;
     private class JsonInputUtil {
         // phải giống với các trường trong file json
         String type;
-        double x, y;
+        double x, y, w, h;
     }
 
     public LevelLoader(Canvas entityCanvas) {
         this.entityRenderer = new Renderer(entityCanvas);
-        this.entityList = new ArrayList<>();
+        this.staticEntityList = new ArrayList<>();
+        this.movingEntityList = new ArrayList<>();
     }
 
     private JsonInputUtil[] getLevelData(String levelId) {
@@ -32,19 +35,23 @@ public class LevelLoader {
         for (JsonInputUtil d : data) {
             Entity current;
             if (d.type.equals("ball")) {
-                current = new Ball(d.x, d.y);
+                current = new Ball(d.x, d.y, d.w, d.h);
+                movingEntityList.add(current);
             }
-            else current = new Ball(d.x, d.y);
-            entityList.add(current);
+            else {
+                current = new Wall(d.x, d.y, d.w, d.h);
+                staticEntityList.add(current);
+            }
         }
     }
 
     public void updateLevel() {
         entityRenderer.clearCanvas();
         entityRenderer.renderStrokeRect();
-        for (Entity e : entityList) {
-            e.update();
-            entityRenderer.render(e.getSprite(), e.getX(), e.getY(), e.getWidth(), e.getHeight());
-        }
+        handleCollision();
+    }
+
+    private void handleCollision() {
+        
     }
 }
