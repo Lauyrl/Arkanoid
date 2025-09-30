@@ -69,5 +69,7 @@ public abstract class Entity {
         this.h = h;
     }
 
-    public abstract void update(double frameTime);
+    public abstract void update();
+    public abstract void changeState(Object entityState);
+    public abstract void setStateSprite();
 }
