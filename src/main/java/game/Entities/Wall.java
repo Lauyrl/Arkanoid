@@ -12,5 +12,11 @@ public class Wall extends Entity {
     }
 
     @Override
-    public void update(double frameTime) {}
+    public void update() {}
+
+    @Override
+    public void changeState(Object wallState) {}
+    
+    @Override
+    public void setStateSprite() {}
 }

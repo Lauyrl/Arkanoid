@@ -48,7 +48,7 @@ public class LevelLoader {
         entityRenderer.clearCanvas();
         handleCollision();
         for (Entity e : movingEntityList) {
-            e.update(1);
+            e.update();
             entityRenderer.render(e);
         }
         for (Entity e : staticEntityList) {

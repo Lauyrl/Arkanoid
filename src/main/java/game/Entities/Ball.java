@@ -4,22 +4,45 @@ import javafx.scene.image.Image;
 
 public class Ball extends Entity {
     private double velX, velY;
-    
+    private static Image[] movingSprites = {new Image(Entity.class.getResourceAsStream("/assets/Ball.png")), new Image(Entity.class.getResourceAsStream("/assets/Ball1.png"))};
+    private static Image[][] spriteArrays = {movingSprites};
+    private BallState ballState;
+    private int frameCounter = 0;
+
+    private enum BallState {
+        MOVING(0), TEST(1);
+        public final int value;
+        private BallState(int i) {
+            value = i;
+        }
+    }
+
     public Ball(double x, double y, double w, double h) {
-        setSprite(new Image(getClass().getResourceAsStream("/assets/Ball.png")));
+        changeState(BallState.MOVING);
         setX(x);
         setY(y);
         setWidth(w);
         setHeight(h);
-        velX = 5;
-        velY = 5;
+        setVelX(5);
+        setVelY(5);
     }
 
     @Override
-    public void update(double frameTime) {
-        setX(getX() + velX * frameTime);
-        setY(getY() + velY * frameTime);
-        //System.out.printf("(%f, %f)%n", getX(), getY());
+    public void update() {
+        setStateSprite();
+        setX(getX() + velX);
+        setY(getY() + velY);
+    }
+
+    @Override
+    public void changeState(Object ballState) {
+        this.ballState = (BallState) ballState;
+    }
+
+    @Override
+    public void setStateSprite() {
+        setSprite(spriteArrays[ballState.value][frameCounter/20]);
+        frameCounter = (frameCounter + 1) % (movingSprites.length*20);
     }
 
     public double getVelX() {
