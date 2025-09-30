@@ -20,3 +20,7 @@ https://www.geeksforgeeks.org/java/javafx-stackpane-class/
 ### Về Gson:  
 https://stackoverflow.com/questions/38636254/  
 https://stackoverflow.com/questions/3763937/gson-and-deserializing-an-array-of-objects-with-arrays-in-it
+
+### Axis aligned bounding boxes, seperating axis
+https://dyn4j.org/2010/01/sat/
+https://benpm.github.io/blog/2d-top-down-collisions-with-rectangles-aabbs/

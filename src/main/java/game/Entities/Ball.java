@@ -5,25 +5,36 @@ import javafx.scene.image.Image;
 public class Ball extends Entity {
     private double velX, velY;
     
-    public Ball(double x, double y) {
+    public Ball(double x, double y, double w, double h) {
         setSprite(new Image(getClass().getResourceAsStream("/assets/Ball.png")));
         setX(x);
         setY(y);
-        setWidth(20);
-        setHeight(20);
-        velX = 10;
-        velY = 10;
+        setWidth(w);
+        setHeight(h);
+        velX = 5;
+        velY = 5;
     }
 
     @Override
-    public void update() {
-        setX(getX() + velX);
-        setY(getY() + velY);
-        // đâm vào 2 bên thì đảo vận tốc x, đâm vào trên hoặc dưới thì đảo vận tốc y
-        if (getX() < 200)               velX = -velX;
-        if (getX() + getWidth() > 600)  velX = -velX;
-        if (getY() < 200)               velY = -velY;
-        if (getY() + getHeight() > 800) velY = -velY;
-        System.out.printf("(%f, %f)", getX(), getY());
+    public void update(double frameTime) {
+        setX(getX() + velX * frameTime);
+        setY(getY() + velY * frameTime);
+        //System.out.printf("(%f, %f)%n", getX(), getY());
+    }
+
+    public double getVelX() {
+        return velX;
+    }
+
+    public double getVelY() {
+        return velY;
+    }
+
+    public void setVelX(double v) {
+        velX = v;
+    }
+
+    public void setVelY(double v) {
+        velY = v;
     }
 }

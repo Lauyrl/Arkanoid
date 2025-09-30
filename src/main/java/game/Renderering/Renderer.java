@@ -1,5 +1,6 @@
 package game.Renderering;
 
+import game.Entities.Entity;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -16,6 +17,10 @@ public class Renderer {
     
     public void render(Image image, double x, double y, double w, double h) {
         gc.drawImage(image, x, y, w, h);
+    }
+
+    public void render(Entity e) {
+        gc.drawImage(e.getSprite(), e.getX(), e.getY(), e.getWidth(), e.getHeight());
     }
 
     public void clearCanvas() {
