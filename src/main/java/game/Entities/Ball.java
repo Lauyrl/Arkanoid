@@ -7,7 +7,6 @@ public class Ball extends Entity {
     private static Image[] movingSprites = {new Image(Entity.class.getResourceAsStream("/assets/Ball.png")), new Image(Entity.class.getResourceAsStream("/assets/Ball1.png"))};
     private static Image[][] spriteArrays = {movingSprites};
     private BallState ballState;
-    private int frameCounter = 0;
 
     private enum BallState {
         MOVING(0), TEST(1);
@@ -38,8 +37,8 @@ public class Ball extends Entity {
 
     @Override
     public void setStateSprite() {
-        setSprite(spriteArrays[ballState.value][frameCounter/20]);
-        frameCounter = (frameCounter + 1) % (movingSprites.length*20);
+        setSprite(spriteArrays[ballState.value][getFrameCounter()/20]);
+        setFrameCounter((getFrameCounter() + 1) % (movingSprites.length*20));
     }
 
     public double getVelX() {
