@@ -18,11 +18,8 @@ public class Ball extends Entity {
     }
 
     public Ball(double x, double y, double w, double h) {
+        super(x, y, w, h);
         changeState(BallState.MOVING);
-        setX(x);
-        setY(y);
-        setWidth(w);
-        setHeight(h);
         setVelX(5);
         setVelY(5);
     }

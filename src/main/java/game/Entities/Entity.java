@@ -6,6 +6,13 @@ public abstract class Entity {
     private Image sprite;
     private double x, y, w, h;
     
+    public Entity(double x, double y, double w, double h) {
+        setX(x);
+        setY(y);
+        setWidth(w);
+        setHeight(h);
+    }
+
     public Image getSprite() {
         return sprite;
     }
