@@ -5,7 +5,8 @@ import javafx.scene.image.Image;
 public abstract class Entity {
     private Image sprite;
     private double x, y, w, h;
-    
+    private int frameCounter = 0;
+
     public Entity(double x, double y, double w, double h) {
         setX(x);
         setY(y);
@@ -54,6 +55,14 @@ public abstract class Entity {
         center[0] = (x + w) / 2;
         center[1] = (y + h) / 2;
         return center;
+    }
+
+    public int getFrameCounter() {
+        return frameCounter;
+    }
+
+    public void setFrameCounter(int frameCounter) {
+        this.frameCounter = frameCounter;
     }
 
     public void setSprite(Image image){
