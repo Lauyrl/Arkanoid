@@ -2,11 +2,13 @@ package game;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.image.Image;
 // Singleton
 public class GameEngine {
     private static GameEngine instance = null;
     private GameState gameState;
     private LevelLoader levelLoader;
+    private UILoader uiLoader;
     //framerate restriction
     private long lastFrame = 0;
     private final long interval = 1000000000 / 60;
@@ -16,6 +18,7 @@ public class GameEngine {
     }
 
     private GameEngine(Canvas backgroundCanvas, Canvas entityCanvas, Canvas uiCanvas) {
+        uiLoader = new UILoader(backgroundCanvas);
         gameState = GameState.BALL_TEST;
         levelLoader = new LevelLoader(entityCanvas);
     }
@@ -34,9 +37,10 @@ public class GameEngine {
                     lastFrame = now;
                     if (gameState == GameState.LEVEL) {
                         levelLoader.updateLevel();
+                        uiLoader.loadUI(new Image(getClass().getResourceAsStream("/assets/1_menu.jpg")));
                     }
-                }    
-                    
+                }
+
             }
         };
         timer.start();
