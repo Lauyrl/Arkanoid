@@ -23,6 +23,10 @@ public class Renderer {
         render(e.getSprite(), e.getX(), e.getY(), e.getWidth(), e.getHeight());
     }
 
+    public static Image loadImage(String path) {
+        return new Image(Entity.class.getResourceAsStream(path));
+    }
+
     public void clearCanvas() {
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }

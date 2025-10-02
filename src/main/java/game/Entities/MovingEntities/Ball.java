@@ -1,32 +1,27 @@
 package game.Entities.MovingEntities;
 
-import game.Entities.Entity;
-import javafx.scene.image.Image;
+import game.Entities.SpriteUtil;
+import java.util.Map;
 
 public class Ball extends MovingEntity {
     private BallState ballState;
-    private static Image[] movingSprites = {new Image(Entity.class.getResourceAsStream("/assets/Ball.png")), 
-                                            new Image(Entity.class.getResourceAsStream("/assets/Ball1.png"))};
+    private static final Map<BallState, SpriteUtil> spriteArrayMap = Map.of(
+        BallState.MOVING, new SpriteUtil(SpriteUtil.BALL_MOVING, 20),
+        BallState.TEST, new SpriteUtil(SpriteUtil.BALL_MOVING, 20)
+    );
 
     private enum BallState {
-        MOVING(0, 20), TEST(1, 20);
-
-        public final int index, spriteInterval;
-        private BallState(int v, int i) {
-            index = v;
-            spriteInterval = i;
-        }
+        MOVING, TEST;
     }
 
     public Ball(double x, double y, double w, double h) {
         super(x, y, w, h, 5, 5);
-        setSpriteArrays(movingSprites);
         setState(BallState.MOVING);
     }
 
     @Override
     public void update() {
-        setCurrentSprite(ballState.index, ballState.spriteInterval);
+        setCurrentSprite(spriteArrayMap.get(ballState));
         updatePosition();
     }
 
