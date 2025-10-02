@@ -15,7 +15,7 @@ public class Ball extends MovingEntity {
     }
 
     public Ball(double x, double y, double w, double h) {
-        super(x, y, w, h, 5, 5);
+        super(x, y, w, h, 10, 10);
         setState(BallState.MOVING);
     }
 

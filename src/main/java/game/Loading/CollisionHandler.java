@@ -2,6 +2,7 @@ package game.Loading;
 
 import game.Entities.*;
 import game.Entities.MovingEntities.Ball;
+import game.Entities.StaticEntities.Collidable;
 import game.Entities.StaticEntities.StaticEntity;
 
 public class CollisionHandler {
@@ -29,6 +30,9 @@ public class CollisionHandler {
                 a.setY(a.getY() + Math.abs(yOverlap));
             }
             a.setVelY(-a.getVelY());
+        }
+        if (b instanceof Collidable) {
+            ((Collidable) b).respondToCollision(a);
         }
     }
 

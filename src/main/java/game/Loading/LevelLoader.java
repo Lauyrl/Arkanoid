@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
-import game.Entities.*;
 import game.Entities.MovingEntities.Ball;
 import game.Entities.MovingEntities.MovingEntity;
 import game.Entities.StaticEntities.Brick;
@@ -51,13 +50,18 @@ public class LevelLoader {
     public void updateLevel() {
         entityRenderer.clearCanvas();
         handleCollision();
-        for (Entity e : movingEntityList) {
-            e.update();
-            entityRenderer.render(e);
+        for (int i = movingEntityList.size() - 1; i >= 0; i--) {
+            MovingEntity current = movingEntityList.get(i);
+            current.update();
+            entityRenderer.render(current);
         }
-        for (Entity e : staticEntityList) {
-            e.update();
-            entityRenderer.render(e);
+        for (int i = staticEntityList.size() - 1; i >= 0; i--) {
+            StaticEntity current = staticEntityList.get(i);
+            current.update();
+            entityRenderer.render(current);
+            if (current instanceof Brick && ((Brick) current).isBroken()) {
+                staticEntityList.remove(i);
+            }
         }
     }
 
