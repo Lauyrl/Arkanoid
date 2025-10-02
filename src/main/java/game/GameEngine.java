@@ -1,12 +1,18 @@
 package game;
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import game.InputHandler;
+import javafx.scene.input.KeyCode;
+
 // Singleton
 public class GameEngine {
     private static GameEngine instance = null;
     private GameState gameState;
     private LevelLoader levelLoader;
+    private InputHandler inputHandler;
+
     //framerate restriction
     private long lastFrame = 0;
     private final long interval = 1000000000 / 60;
@@ -15,15 +21,19 @@ public class GameEngine {
         START_MENU, MODE_SELECT, LEVEL_SELECT, LEVEL, BALL_TEST
     }
 
-    private GameEngine(Canvas backgroundCanvas, Canvas entityCanvas, Canvas uiCanvas) {
+    private GameEngine(Canvas backgroundCanvas, Canvas entityCanvas, Canvas uiCanvas, Scene scene) {
         gameState = GameState.BALL_TEST;
         levelLoader = new LevelLoader(entityCanvas);
+        inputHandler = new InputHandler(scene);
     }
 
-    public static GameEngine getInstance(Canvas backgroundCanvas, Canvas entityCanvas, Canvas uiCanvas) {
-        if (instance == null) instance = new GameEngine(backgroundCanvas, entityCanvas, uiCanvas);
+    public static GameEngine getInstance(Canvas backgroundCanvas, Canvas entityCanvas, Canvas uiCanvas, Scene scene) {
+        if (instance == null) instance = new GameEngine(backgroundCanvas, entityCanvas, uiCanvas, scene);
         return instance;
     }
+
+
+
     // vong lặp chính
     public void run() {
         AnimationTimer timer = new AnimationTimer() {
@@ -34,6 +44,9 @@ public class GameEngine {
                     lastFrame = now;
                     if (gameState == GameState.LEVEL) {
                         levelLoader.updateLevel();
+                    if (inputHandler.isKeyPressed(KeyCode.W)) {
+                        System.out.println("W");
+                    }
                     }
                 }    
                     
@@ -48,4 +61,8 @@ public class GameEngine {
             levelLoader.loadLevel("");
         }
     }
+
+
+
+
 }

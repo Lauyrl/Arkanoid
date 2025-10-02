@@ -32,7 +32,7 @@ public class App extends Application {
         stage.setTitle("Arkanoid");
         stage.show();
         //GameEngine quản lí logic game
-        GameEngine engine = GameEngine.getInstance(backgroundCanvas, entityCanvas, uiCanvas);
+        GameEngine engine = GameEngine.getInstance(backgroundCanvas, entityCanvas, uiCanvas, mainScene);
         engine.changeState(GameState.LEVEL);
         engine.run();
     }
