@@ -1,8 +1,8 @@
-package game.Entities;
+package game.Entities.StaticEntities;
 
 import javafx.scene.image.Image;
 
-public class Wall extends Entity {
+public class Wall extends StaticEntity {
     public Wall(double x, double y, double w, double h) {
         super(x, y, w, h);
         setSprite(new Image(getClass().getResourceAsStream("/assets/Ball.png")));
@@ -12,8 +12,5 @@ public class Wall extends Entity {
     public void update() {}
 
     @Override
-    public void changeState(Object wallState) {}
-    
-    @Override
-    public void setStateSprite() {}
+    public void setState(Object wallState) {}
 }

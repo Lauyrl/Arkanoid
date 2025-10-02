@@ -1,4 +1,4 @@
-package game;
+package game.Loading;
 
 import game.Renderering.Renderer;
 import javafx.scene.canvas.Canvas;
@@ -12,9 +12,6 @@ public class UILoader {
     }
 
     public void loadUI(Image image) {
-        uiRenderer.render(image, 0, 0, uiRenderer.getCanvas().getWidth(), uiRenderer.getCanvas().getHeight());
-
+        uiRenderer.render(image, 0, 0, 1920, 1080);
     }
-
-
 }

@@ -1,6 +1,8 @@
-package game;
+package game.Loading;
 
 import game.Entities.*;
+import game.Entities.MovingEntities.Ball;
+import game.Entities.StaticEntities.StaticEntity;
 
 public class CollisionHandler {
     public static boolean overlaps(Entity a, Entity b) {
@@ -10,7 +12,7 @@ public class CollisionHandler {
             && a.getTopBound() < b.getBottomBound());
     }
 
-    public static void resolveCollision(Ball a, Entity b) {
+    public static void resolveCollision(Ball a, StaticEntity b) {
         double xOverlap = Math.min(a.getRightBound(), b.getRightBound()) - Math.max(a.getLeftBound(), b.getLeftBound());
         double yOverlap = Math.min(a.getBottomBound(), b.getBottomBound()) - Math.max(a.getTopBound(), b.getTopBound());
         if (xOverlap < yOverlap) {
