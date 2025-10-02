@@ -1,10 +1,14 @@
-package game;
+package game.Loading;
 
 import com.google.gson.Gson;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import game.Entities.*;
+import game.Entities.MovingEntities.Ball;
+import game.Entities.MovingEntities.MovingEntity;
+import game.Entities.StaticEntities.StaticEntity;
+import game.Entities.StaticEntities.Wall;
 import game.Renderering.Renderer;
 
 public class LevelLoader {

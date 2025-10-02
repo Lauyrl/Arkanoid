@@ -1,5 +1,6 @@
-package game.Entities;
+package game.Entities.StaticEntities;
 
+import game.Entities.Entity;
 import javafx.scene.image.Image;
 
 public class Brick extends StaticEntity {

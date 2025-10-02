@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import game.InputHandler;
+import game.Loading.LevelLoader;
 import javafx.scene.input.KeyCode;
 
 // Singleton

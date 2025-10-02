@@ -1,6 +1,8 @@
-package game;
+package game.Loading;
 
 import game.Entities.*;
+import game.Entities.MovingEntities.Ball;
+import game.Entities.StaticEntities.StaticEntity;
 
 public class CollisionHandler {
     public static boolean overlaps(Entity a, Entity b) {

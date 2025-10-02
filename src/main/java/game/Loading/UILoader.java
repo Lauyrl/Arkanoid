@@ -1,4 +1,4 @@
-package game;
+package game.Loading;
 
 import game.Renderering.Renderer;
 import javafx.scene.canvas.Canvas;

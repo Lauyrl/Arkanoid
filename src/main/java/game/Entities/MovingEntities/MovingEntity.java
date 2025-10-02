@@ -1,4 +1,6 @@
-package game.Entities;
+package game.Entities.MovingEntities;
+
+import game.Entities.Entity;
 
 public abstract class MovingEntity extends Entity {
     private double velX, velY;

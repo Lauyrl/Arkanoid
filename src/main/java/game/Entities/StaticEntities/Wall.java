@@ -1,4 +1,4 @@
-package game.Entities;
+package game.Entities.StaticEntities;
 
 import javafx.scene.image.Image;
 
