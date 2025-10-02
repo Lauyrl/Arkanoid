@@ -3,7 +3,7 @@ package game.Entities.MovingEntities;
 import game.Entities.SpriteUtil;
 import java.util.Map;
 
-public class Ball extends MovingEntity {
+public class Ball extends MovingEntity implements Bouncy {
     private BallState ballState;
     private static final Map<BallState, SpriteUtil> spriteArrayMap = Map.of(
         BallState.MOVING, new SpriteUtil(SpriteUtil.BALL_MOVING, 20),
@@ -18,6 +18,16 @@ public class Ball extends MovingEntity {
         super(x, y, w, h, 10, 10);
         setState(BallState.MOVING);
     }
+
+    @Override
+    public void bounceX() {
+        setVelX(-getVelX());
+    }
+
+    @Override
+    public void bounceY() {
+        setVelY(-getVelY());
+    }  
 
     @Override
     public void update() {
