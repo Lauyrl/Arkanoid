@@ -2,58 +2,35 @@ package game.Entities;
 
 import javafx.scene.image.Image;
 
-public class Ball extends Entity {
-    private double velX, velY;
-    private static Image[] movingSprites = {new Image(Entity.class.getResourceAsStream("/assets/Ball.png")), new Image(Entity.class.getResourceAsStream("/assets/Ball1.png"))};
-    private static Image[][] spriteArrays = {movingSprites};
+public class Ball extends MovingEntity {
     private BallState ballState;
+    private static Image[] movingSprites = {new Image(Entity.class.getResourceAsStream("/assets/Ball.png")), 
+                                            new Image(Entity.class.getResourceAsStream("/assets/Ball1.png"))};
 
     private enum BallState {
-        MOVING(0), TEST(1);
-        public final int value;
-        private BallState(int i) {
-            value = i;
+        MOVING(0, 20), TEST(1, 20);
+
+        public final int index, spriteInterval;
+        private BallState(int v, int i) {
+            index = v;
+            spriteInterval = i;
         }
     }
 
     public Ball(double x, double y, double w, double h) {
-        super(x, y, w, h);
-        changeState(BallState.MOVING);
-        setVelX(5);
-        setVelY(5);
+        super(x, y, w, h, 5, 5);
+        setSpriteArrays(movingSprites);
+        setState(BallState.MOVING);
     }
 
     @Override
     public void update() {
-        setStateSprite();
-        setX(getX() + velX);
-        setY(getY() + velY);
+        setStateSprite(ballState.index, ballState.spriteInterval);
+        updatePosition();
     }
 
     @Override
-    public void changeState(Object ballState) {
+    public void setState(Object ballState) {
         this.ballState = (BallState) ballState;
-    }
-
-    @Override
-    public void setStateSprite() {
-        setSprite(spriteArrays[ballState.value][getFrameCounter()/20]);
-        setFrameCounter((getFrameCounter() + 1) % (movingSprites.length*20));
-    }
-
-    public double getVelX() {
-        return velX;
-    }
-
-    public double getVelY() {
-        return velY;
-    }
-
-    public void setVelX(double v) {
-        velX = v;
-    }
-
-    public void setVelY(double v) {
-        velY = v;
     }
 }

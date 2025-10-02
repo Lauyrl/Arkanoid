@@ -2,7 +2,7 @@ package game.Entities;
 
 import javafx.scene.image.Image;
 
-public class Brick extends Entity {
+public class Brick extends StaticEntity {
     private int hp;
     private BrickState brickState;
     private static Image[] normalSprites = {new Image(Entity.class.getResourceAsStream("/assets/Brick.png"))};

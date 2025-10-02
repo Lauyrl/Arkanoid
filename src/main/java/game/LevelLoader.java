@@ -8,8 +8,8 @@ import game.Entities.*;
 import game.Renderering.Renderer;
 
 public class LevelLoader {
-    private ArrayList<Entity> staticEntityList;
-    private ArrayList<Entity> movingEntityList;
+    private ArrayList<StaticEntity> staticEntityList = new ArrayList<>();
+    private ArrayList<MovingEntity> movingEntityList = new ArrayList<>();
     private Renderer entityRenderer;
     private class JsonInputUtil {
         // phải giống với các trường trong file json
@@ -19,26 +19,23 @@ public class LevelLoader {
 
     public LevelLoader(Canvas entityCanvas) {
         this.entityRenderer = new Renderer(entityCanvas);
-        this.staticEntityList = new ArrayList<>();
-        this.movingEntityList = new ArrayList<>();
     }
 
     private JsonInputUtil[] getLevelData(String levelId) {
         Gson gson = new Gson();
-        InputStreamReader reader = new InputStreamReader(getClass().getResourceAsStream("/Level_data.json"));
+        InputStreamReader reader = new InputStreamReader(getClass().getResourceAsStream("/Level_" + levelId + ".json"));
         return gson.fromJson(reader, JsonInputUtil[].class);
     }
 
     public void loadLevel(String levelId) {
         JsonInputUtil[] data = getLevelData(levelId);
         for (JsonInputUtil d : data) {
-            Entity current;
             if (d.type.equals("ball")) {
-                current = new Ball(d.x, d.y, d.w, d.h);
+                MovingEntity current = new Ball(d.x, d.y, d.w, d.h);
                 movingEntityList.add(current);
             }
             else {
-                current = new Wall(d.x, d.y, d.w, d.h);
+                StaticEntity current = new Wall(d.x, d.y, d.w, d.h);
                 staticEntityList.add(current);
             }
         }
@@ -58,10 +55,10 @@ public class LevelLoader {
 
     private void handleCollision() {
         for (int t = 0; t < 2; t++) {
-            for (Entity ball : movingEntityList) {
-                for (Entity wall : staticEntityList) {
-                    if (CollisionHandler.overlaps(ball, wall) == true) {
-                        CollisionHandler.resolveCollision((Ball) ball, wall);
+            for (MovingEntity ball : movingEntityList) {
+                for (StaticEntity staticEntity : staticEntityList) {
+                    if (CollisionHandler.overlaps(ball, staticEntity) == true) {
+                        CollisionHandler.resolveCollision((Ball) ball, staticEntity);
                     }
                 }
             }
