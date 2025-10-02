@@ -54,7 +54,7 @@ public class GameEngine {
     public void setState(GameState gameState) {
         this.gameState = gameState;
         if (gameState == GameState.LEVEL) {
-            levelLoader.loadLevel("");
+            levelLoader.loadLevel("0");
         }
     }
 }

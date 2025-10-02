@@ -7,6 +7,7 @@ import javafx.scene.canvas.Canvas;
 import game.Entities.*;
 import game.Entities.MovingEntities.Ball;
 import game.Entities.MovingEntities.MovingEntity;
+import game.Entities.StaticEntities.Brick;
 import game.Entities.StaticEntities.StaticEntity;
 import game.Entities.StaticEntities.Wall;
 import game.Renderering.Renderer;
@@ -37,8 +38,10 @@ public class LevelLoader {
             if (d.type.equals("ball")) {
                 MovingEntity current = new Ball(d.x, d.y, d.w, d.h);
                 movingEntityList.add(current);
-            }
-            else {
+            } else if (d.type.equals("brick")) {
+                StaticEntity current = new Brick(d.x, d.y, d.w, d.h);
+                staticEntityList.add(current);
+            } else {
                 StaticEntity current = new Wall(d.x, d.y, d.w, d.h);
                 staticEntityList.add(current);
             }
@@ -53,6 +56,7 @@ public class LevelLoader {
             entityRenderer.render(e);
         }
         for (Entity e : staticEntityList) {
+            e.update();
             entityRenderer.render(e);
         }
     }

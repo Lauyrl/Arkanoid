@@ -100,7 +100,7 @@ public abstract class Entity {
         }
     }
 
-    public void setStateSprite(int index, int spriteInterval) {
+    public void setCurrentSprite(int index, int spriteInterval) {
         Image[] currentSpriteArray = getSpriteArrays().get(index);
         setSprite(currentSpriteArray[getFrameCounter() / spriteInterval]);
         incrementFrameCounter(currentSpriteArray.length * spriteInterval);

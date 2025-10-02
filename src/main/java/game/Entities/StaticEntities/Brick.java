@@ -27,7 +27,7 @@ public class Brick extends StaticEntity {
 
     @Override
     public void update() {
-       setStateSprite(brickState.index, brickState.spriteInterval);
+       setCurrentSprite(brickState.index, brickState.spriteInterval);
     }
 
     @Override

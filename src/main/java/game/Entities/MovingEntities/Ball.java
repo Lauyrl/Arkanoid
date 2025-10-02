@@ -26,7 +26,7 @@ public class Ball extends MovingEntity {
 
     @Override
     public void update() {
-        setStateSprite(ballState.index, ballState.spriteInterval);
+        setCurrentSprite(ballState.index, ballState.spriteInterval);
         updatePosition();
     }
 
