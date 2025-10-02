@@ -19,19 +19,19 @@ public class CollisionHandler {
         double aRelativeXb = a.getCenter()[0] - b.getCenter()[0];
         double aRelativeYb = a.getCenter()[1] - b.getCenter()[1];
 
-        if (a instanceof Paddle && b instanceof Bouncy) {
+        if (a instanceof Paddle && b instanceof Collidable) {
+            a.setX(a.getX() + Math.copySign(xOverlap, aRelativeXb));
+            a.setVelX(0);
+        } 
+
+        else if (a instanceof Paddle && b instanceof Bouncy) {
             if (xOverlap < yOverlap) {
                 b.setX(b.getX() - Math.copySign(xOverlap, aRelativeXb));
                 ((Bouncy) b).bounceX();
             } else {
                 b.setY(b.getY() - Math.copySign(yOverlap, aRelativeYb));
-                ((Bouncy) b).bounceY();
+                ((Bouncy) b).bounceOffPaddle(a.getCenter()[0], a.getWidth());
             }
-        } 
-
-        else if (a instanceof Paddle && b instanceof Collidable) {
-            a.setX(a.getX() + Math.copySign(xOverlap, aRelativeXb));
-            a.setVelX(0);
         } 
 
         else if (a instanceof Bouncy && b instanceof Paddle) {
@@ -40,7 +40,7 @@ public class CollisionHandler {
                 ((Bouncy) a).bounceX();
             } else {
                 a.setY(a.getY() + Math.copySign(yOverlap, aRelativeYb));
-                ((Bouncy) a).bounceY();
+                ((Bouncy) a).bounceOffPaddle(b.getCenter()[0], b.getWidth());
             }
         } 
 

@@ -55,8 +55,8 @@ public abstract class Entity {
 
     public double[] getCenter() {
         double[] center = new double[2];
-        center[0] = (x + w) / 2;
-        center[1] = (y + h) / 2;
+        center[0] = x + w / 2;
+        center[1] = y + h / 2;
         return center;
     }
 

@@ -30,6 +30,16 @@ public class Ball extends MovingEntity implements Bouncy {
     }  
 
     @Override
+    public void bounceOffPaddle(double paddleCenterX, double paddleWidth) {
+        double delta = (getCenter()[0] - paddleCenterX) / (paddleWidth / 2); 
+        double maxAngle = Math.toRadians(75);
+        double theta = delta * maxAngle;
+        double vel = Math.sqrt(getVelX() * getVelX() + getVelY() * getVelY());
+        setVelX(vel * Math.sin(theta));
+        setVelY(-vel * Math.cos(theta));
+    }
+
+    @Override
     public void update() {
         setCurrentSprite(spriteArrayMap.get(ballState));
         updatePosition();
