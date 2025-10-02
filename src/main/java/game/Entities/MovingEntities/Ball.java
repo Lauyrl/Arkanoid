@@ -1,32 +1,47 @@
 package game.Entities.MovingEntities;
 
-import game.Entities.Entity;
-import javafx.scene.image.Image;
+import game.Entities.SpriteUtil;
+import java.util.Map;
 
-public class Ball extends MovingEntity {
+public class Ball extends MovingEntity implements Bouncy {
     private BallState ballState;
-    private static Image[] movingSprites = {new Image(Entity.class.getResourceAsStream("/assets/Ball.png")), 
-                                            new Image(Entity.class.getResourceAsStream("/assets/Ball1.png"))};
+    private static final Map<BallState, SpriteUtil> spriteArrayMap = Map.of(
+        BallState.MOVING, new SpriteUtil(SpriteUtil.BALL_MOVING, 20),
+        BallState.TEST, new SpriteUtil(SpriteUtil.BALL_MOVING, 20)
+    );
 
     private enum BallState {
-        MOVING(0, 20), TEST(1, 20);
-
-        public final int index, spriteInterval;
-        private BallState(int v, int i) {
-            index = v;
-            spriteInterval = i;
-        }
+        MOVING, TEST;
     }
 
     public Ball(double x, double y, double w, double h) {
-        super(x, y, w, h, 5, 5);
-        setSpriteArrays(movingSprites);
+        super(x, y, w, h, 10, 10);
         setState(BallState.MOVING);
     }
 
     @Override
+    public void bounceX() {
+        setVelX(-getVelX());
+    }
+
+    @Override
+    public void bounceY() {
+        setVelY(-getVelY());
+    }  
+
+    @Override
+    public void bounceOffPaddle(double paddleCenterX, double paddleWidth) {
+        double delta = (getCenter()[0] - paddleCenterX) / (paddleWidth / 2); 
+        double maxAngle = Math.toRadians(75);
+        double theta = delta * maxAngle;
+        double vel = Math.sqrt(getVelX() * getVelX() + getVelY() * getVelY());
+        setVelX(vel * Math.sin(theta));
+        setVelY(-vel * Math.cos(theta));
+    }
+
+    @Override
     public void update() {
-        setStateSprite(ballState.index, ballState.spriteInterval);
+        setCurrentSprite(spriteArrayMap.get(ballState));
         updatePosition();
     }
 

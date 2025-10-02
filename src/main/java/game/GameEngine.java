@@ -3,16 +3,13 @@ package game;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import game.InputHandler;
 import game.Loading.LevelLoader;
-import javafx.scene.input.KeyCode;
 
 // Singleton
 public class GameEngine {
     private static GameEngine instance = null;
     private GameState gameState;
     private LevelLoader levelLoader;
-    private InputHandler inputHandler;
 
     //framerate restriction
     private long lastFrame = 0;
@@ -24,8 +21,7 @@ public class GameEngine {
 
     private GameEngine(Canvas backgroundCanvas, Canvas entityCanvas, Canvas uiCanvas, Scene scene) {
         gameState = GameState.BALL_TEST;
-        levelLoader = new LevelLoader(entityCanvas);
-        inputHandler = new InputHandler(scene);
+        levelLoader = new LevelLoader(entityCanvas, new InputHandler(scene));
     }
 
     public static GameEngine getInstance(Canvas backgroundCanvas, Canvas entityCanvas, Canvas uiCanvas, Scene scene) {
@@ -54,7 +50,7 @@ public class GameEngine {
     public void setState(GameState gameState) {
         this.gameState = gameState;
         if (gameState == GameState.LEVEL) {
-            levelLoader.loadLevel("");
+            levelLoader.loadLevel("0");
         }
     }
 }

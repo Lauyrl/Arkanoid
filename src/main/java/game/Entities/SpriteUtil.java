@@ -1,0 +1,17 @@
+package game.Entities;
+
+import game.Renderering.Renderer;
+import javafx.scene.image.Image;
+
+public class SpriteUtil {
+    public static final Image[] BALL_MOVING = {Renderer.loadImage("/assets/Ball.png"), Renderer.loadImage("/assets/Ball1.png")};
+    public static final Image[] BRICK_NORMAL = {Renderer.loadImage("/assets/Brick.png")};
+    public final Image[] sprites;
+    public final int duration; 
+
+    public SpriteUtil(Image[] sprites, int duration) {
+        this.sprites = sprites;
+        this.duration = duration;
+    }
+}
+

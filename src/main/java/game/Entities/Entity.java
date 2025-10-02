@@ -1,13 +1,11 @@
 package game.Entities;
 
-import java.util.ArrayList;
 import javafx.scene.image.Image;
 
 public abstract class Entity {
     private Image sprite;
     private double x, y, w, h;
     private int frameCounter = 0;
-    private ArrayList<Image[]> spriteArrays = new ArrayList<>();
 
     public Entity(double x, double y, double w, double h) {
         setX(x);
@@ -57,17 +55,13 @@ public abstract class Entity {
 
     public double[] getCenter() {
         double[] center = new double[2];
-        center[0] = (x + w) / 2;
-        center[1] = (y + h) / 2;
+        center[0] = x + w / 2;
+        center[1] = y + h / 2;
         return center;
     }
 
     public int getFrameCounter() {
         return frameCounter;
-    }
-
-    public ArrayList<Image[]> getSpriteArrays() {
-        return spriteArrays;
     }
 
     public void setSprite(Image image){
@@ -94,16 +88,9 @@ public abstract class Entity {
         this.frameCounter = frameCounter;
     }
 
-    public void setSpriteArrays(Image[]... spriteArray) {
-        for (Image[] s : spriteArray) {
-            spriteArrays.add(s);
-        }
-    }
-
-    public void setStateSprite(int index, int spriteInterval) {
-        Image[] currentSpriteArray = getSpriteArrays().get(index);
-        setSprite(currentSpriteArray[getFrameCounter() / spriteInterval]);
-        incrementFrameCounter(currentSpriteArray.length * spriteInterval);
+    public void setCurrentSprite(SpriteUtil u) {
+        setSprite(u.sprites[frameCounter / u.duration]);
+        incrementFrameCounter(u.sprites.length * u.duration);
     }
 
     public void incrementFrameCounter(int limit) {
