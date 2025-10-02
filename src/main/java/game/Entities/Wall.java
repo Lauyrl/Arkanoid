@@ -12,8 +12,5 @@ public class Wall extends Entity {
     public void update() {}
 
     @Override
-    public void changeState(Object wallState) {}
-    
-    @Override
-    public void setStateSprite() {}
+    public void setState(Object wallState) {}
 }

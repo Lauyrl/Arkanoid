@@ -32,9 +32,7 @@ public class GameEngine {
         return instance;
     }
 
-
-
-    // vong lặp chính
+    // VÒNG LẶP CHÍNH
     public void run() {
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -44,9 +42,6 @@ public class GameEngine {
                     lastFrame = now;
                     if (gameState == GameState.LEVEL) {
                         levelLoader.updateLevel();
-                    if (inputHandler.isKeyPressed(KeyCode.W)) {
-                        System.out.println("W");
-                    }
                     }
                 }    
                     
@@ -55,14 +50,10 @@ public class GameEngine {
         timer.start();
     }
 
-    public void changeState(GameState gameState) {
+    public void setState(GameState gameState) {
         this.gameState = gameState;
         if (gameState == GameState.LEVEL) {
             levelLoader.loadLevel("");
         }
     }
-
-
-
-
 }

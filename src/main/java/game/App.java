@@ -33,7 +33,7 @@ public class App extends Application {
         stage.show();
         //GameEngine quản lí logic game
         GameEngine engine = GameEngine.getInstance(backgroundCanvas, entityCanvas, uiCanvas, mainScene);
-        engine.changeState(GameState.LEVEL);
+        engine.setState(GameState.LEVEL);
         engine.run();
     }
     

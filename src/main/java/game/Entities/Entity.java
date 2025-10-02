@@ -1,11 +1,13 @@
 package game.Entities;
 
+import java.util.ArrayList;
 import javafx.scene.image.Image;
 
 public abstract class Entity {
     private Image sprite;
     private double x, y, w, h;
     private int frameCounter = 0;
+    private ArrayList<Image[]> spriteArrays = new ArrayList<>();
 
     public Entity(double x, double y, double w, double h) {
         setX(x);
@@ -13,6 +15,9 @@ public abstract class Entity {
         setWidth(w);
         setHeight(h);
     }
+
+    public abstract void update();
+    public abstract void setState(Object entityState);
 
     public Image getSprite() {
         return sprite;
@@ -61,8 +66,8 @@ public abstract class Entity {
         return frameCounter;
     }
 
-    public void setFrameCounter(int frameCounter) {
-        this.frameCounter = frameCounter;
+    public ArrayList<Image[]> getSpriteArrays() {
+        return spriteArrays;
     }
 
     public void setSprite(Image image){
@@ -85,7 +90,23 @@ public abstract class Entity {
         this.h = h;
     }
 
-    public abstract void update();
-    public abstract void changeState(Object entityState);
-    public abstract void setStateSprite();
+    public void setFrameCounter(int frameCounter) {
+        this.frameCounter = frameCounter;
+    }
+
+    public void setSpriteArrays(Image[]... spriteArray) {
+        for (Image[] s : spriteArray) {
+            spriteArrays.add(s);
+        }
+    }
+
+    public void setStateSprite(int index, int spriteInterval) {
+        Image[] currentSpriteArray = getSpriteArrays().get(index);
+        setSprite(currentSpriteArray[getFrameCounter() / spriteInterval]);
+        incrementFrameCounter(currentSpriteArray.length * spriteInterval);
+    }
+
+    public void incrementFrameCounter(int limit) {
+        frameCounter = (frameCounter + 1) % limit;
+    }
 }
