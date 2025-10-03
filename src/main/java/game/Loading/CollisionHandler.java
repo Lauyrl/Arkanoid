@@ -4,13 +4,29 @@ import game.Entities.*;
 import game.Entities.MovingEntities.*;
 import game.Entities.StaticEntities.Collidable;
 import game.Entities.StaticEntities.StaticEntity;
+import java.util.ArrayList;
 
 public class CollisionHandler {
     public static boolean overlaps(Entity a, Entity b) {
-        return (a.getLeftBound() < b.getRightBound()
-            && a.getRightBound() > b.getLeftBound()
-            && a.getBottomBound() > b.getTopBound()
-            && a.getTopBound() < b.getBottomBound());
+        return (a.getLeftBound() < b.getRightBound() && a.getRightBound() > b.getLeftBound()
+             && a.getBottomBound() > b.getTopBound() && a.getTopBound() < b.getBottomBound());
+    }
+
+    public static void handleCollision(ArrayList<MovingEntity> movingEntityList, ArrayList<StaticEntity> staticEntityList, int iterations) {
+        for (int t = 0; t < iterations; t++) {
+            for (int i = 0; i < movingEntityList.size(); i++) {
+                for (int j = 0; j < staticEntityList.size(); j++) {
+                    if (overlaps(movingEntityList.get(i), staticEntityList.get(j))) {
+                        resolveCollision(movingEntityList.get(i), staticEntityList.get(j));
+                    }
+                }
+                for (int j = i+1; j < movingEntityList.size(); j++) {
+                    if (overlaps(movingEntityList.get(i), movingEntityList.get(j))) {
+                        resolveCollision(movingEntityList.get(i), movingEntityList.get(j));
+                    }
+                }
+            }
+        }
     }
 
     public static void resolveCollision(MovingEntity a, Entity b) {

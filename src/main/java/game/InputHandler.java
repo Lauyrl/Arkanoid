@@ -27,4 +27,8 @@ public class InputHandler {
     public boolean isKeyPressed(KeyCode code) {
         return keysPressed.contains(code);
     }
+
+    public Set<KeyCode> getKeysPressed() {
+        return keysPressed;
+    }
 }
