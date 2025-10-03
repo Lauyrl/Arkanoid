@@ -12,6 +12,6 @@ public class UILoader {
     }
 
     public void loadUI(Image image) {
-        uiRenderer.render(image, 0, 0, 1920, 1080);
+        uiRenderer.render(image, 0, 40, 1920, 1080);
     }
 }
