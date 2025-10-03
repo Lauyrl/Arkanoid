@@ -1,10 +1,11 @@
 package game.Entities.StaticEntities;
 
+import game.Entities.Destructible;
 import game.Entities.SpriteUtil;
 import game.Entities.MovingEntities.MovingEntity;
 import java.util.Map;
 
-public class Brick extends StaticEntity implements Collidable {
+public class Brick extends StaticEntity implements Collidable, Destructible {
     private int hp;
     private BrickState brickState;
     private static final Map<BrickState, SpriteUtil> spriteArrayMap = Map.of(
@@ -38,7 +39,7 @@ public class Brick extends StaticEntity implements Collidable {
         this.brickState = (BrickState) brickState;
     }
 
-    public boolean isBroken() {
+    public boolean isDestroyed() {
         return brickState.equals(BrickState.BROKEN);
     }
 

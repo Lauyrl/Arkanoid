@@ -1,4 +1,4 @@
-package game;
+package game.Inputs;
 
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
@@ -26,5 +26,9 @@ public class InputHandler {
 
     public boolean isKeyPressed(KeyCode code) {
         return keysPressed.contains(code);
+    }
+
+    public Set<KeyCode> getKeysPressed() {
+        return keysPressed;
     }
 }

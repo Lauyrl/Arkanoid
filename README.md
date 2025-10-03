@@ -10,6 +10,7 @@ git commit -m " ... " (commit từng phần dần trên branch đó, khi nào xo
 
 ## Cách push và merge:  
 git push origin [tên branch tạm thời]  
+lên github tạo pull request  
 git checkout main (quay lại nhánh main)  
 git branch -d [tên branch tạm thời] (xoá branch tạm thời khỏi máy)  
 
@@ -26,4 +27,7 @@ https://dyn4j.org/2010/01/sat/
 https://benpm.github.io/blog/2d-top-down-collisions-with-rectangles-aabbs/
 
 ### Paddle:  
-https://gamedev.stackexchange.com/questions/4253/in-pong-how-do-you-calculate-the-balls-direction-when-it-bounces-off-the-paddl
+https://gamedev.stackexchange.com/questions/4253/in-pong-how-do-you-calculate-the-balls-direction-when-it-bounces-off-the-paddl  
+
+### Nguồn asset:  
+https://ci.itch.io/puzzle-games-graphics-pack
