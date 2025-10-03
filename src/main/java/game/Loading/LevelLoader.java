@@ -2,10 +2,10 @@ package game.Loading;
 
 import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
-import game.InputHandler;
 import game.Entities.Destructible;
 import game.Entities.MovingEntities.*;
 import game.Entities.StaticEntities.*;
+import game.Inputs.InputHandler;
 import game.Renderering.Renderer;
 
 public class LevelLoader {
@@ -34,7 +34,6 @@ public class LevelLoader {
                 ((Paddle) e).respondToInput(inputHandler.getKeysPressed()); 
             }
             e.update();
-            System.out.println("hello?");
             entityRenderer.render(e);
         }
         for (StaticEntity e : staticEntityList) {
@@ -44,15 +43,13 @@ public class LevelLoader {
     }
 
     private void removeDestroyedEntities() {
-        for (int i = movingEntityList.size() - 1; i >= 0; i--) {
-            if (movingEntityList.get(i) instanceof Destructible && ((Destructible) movingEntityList.get(i)).isDestroyed()) {
-                movingEntityList.remove(i);
-            }
-        }
-        for (int i = staticEntityList.size() - 1; i >= 0; i--) {
-            if (staticEntityList.get(i) instanceof Destructible && ((Destructible) staticEntityList.get(i)).isDestroyed()) {
-                staticEntityList.remove(i);
-            }
-        }
+        movingEntityList.removeIf(entity -> entity instanceof Destructible && ((Destructible) entity).isDestroyed());
+        staticEntityList.removeIf(entity -> entity instanceof Destructible && ((Destructible) entity).isDestroyed());
+    }
+
+    public void clean() {
+        entityRenderer.clearCanvas();
+        staticEntityList.clear();
+        movingEntityList.clear();
     }
 }
