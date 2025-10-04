@@ -13,6 +13,7 @@ public class LevelLoader {
     private ArrayList<StaticEntity> staticEntityList = new ArrayList<>();
     private InputHandler inputHandler;
     private Renderer entityRenderer;
+    private String currentLevelId = "";
 
     public LevelLoader(Canvas entityCanvas, InputHandler inputHandler) {
         this.entityRenderer = new Renderer(entityCanvas);
@@ -20,6 +21,7 @@ public class LevelLoader {
     }
 
     public void loadLevel(String levelId) {
+        currentLevelId = levelId;
         staticEntityList = new ArrayList<>();
         movingEntityList = new ArrayList<>();
         EntityFactory.produceEntities(levelId, movingEntityList, staticEntityList);
@@ -51,5 +53,9 @@ public class LevelLoader {
         entityRenderer.clearCanvas();
         staticEntityList.clear();
         movingEntityList.clear();
+    }
+
+    public String getCurrentLevelId() {
+        return currentLevelId;
     }
 }
