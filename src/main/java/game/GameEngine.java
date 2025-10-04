@@ -21,7 +21,7 @@ public class GameEngine implements GameEventObserver {
     private final long interval = 1000000000 / 60;
 
     public enum GameState {
-        START_MENU, MODE_SELECT, LEVEL_SELECT, LEVEL
+        START_MENU, LEVEL_SELECT, LEVEL
     }
 
     private GameEngine(StackPane sp, Canvas backgroundCanvas, Canvas entityCanvas, Canvas uiCanvas, Scene scene) {
@@ -57,19 +57,29 @@ public class GameEngine implements GameEventObserver {
     public void setState(GameState gameState) {
         this.gameState = gameState;
         uiLoader.loadMenu(gameState);
-        switch (gameState) {
-            case GameState.START_MENU -> {
-                levelLoader.clean();
-            }
-            case GameState.LEVEL -> {
-                uiLoader.loadBackground(SpriteUtil.BACKGROUND);
-                levelLoader.loadLevel("0");
-            }
-        }
     }
 
     @Override
-    public void listen(GameState gameState) {
-        setState(gameState);
+    public void listenStartMenu() {
+        setState(GameState.START_MENU);
+        levelLoader.clean();
+    }
+
+    @Override
+    public void listenLoadLevel(String levelId) {
+        setState(GameState.LEVEL);
+        uiLoader.loadBackground(SpriteUtil.BACKGROUND);
+        levelLoader.loadLevel(levelId);
+    }
+
+    @Override
+    public void listenReloadLevel() {
+        levelLoader.clean();
+        listenLoadLevel(levelLoader.getCurrentLevelId());
+    }
+
+    @Override
+    public void listenLevelSelectMenu() {
+        setState(GameState.LEVEL_SELECT);
     }
 }
