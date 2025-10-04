@@ -28,7 +28,7 @@ public class UILoader {
                 setButtonBounds(start, 610, 400, 300, 80);
                 root.getChildren().add(menu);
                 start.setOnMouseClicked(e -> {
-                    subscriber.listen(GameState.LEVEL);
+                    subscriber.listenLoadLevel("0");;
                     root.getChildren().remove(menu);
                 });
             }
@@ -40,14 +40,18 @@ public class UILoader {
                 setButtonBounds(reset, 100, 250, 100, 100);
                 root.getChildren().add(options);
                 reset.setOnMouseClicked(e -> {
+                    cleanBackground();
+                    subscriber.listenReloadLevel();
                     root.getChildren().remove(options);
-                    subscriber.listen(GameState.LEVEL);
                 });
                 exit.setOnMouseClicked(e -> {
                     cleanBackground();
+                    subscriber.listenStartMenu();
                     root.getChildren().remove(options);
-                    subscriber.listen(GameState.START_MENU);
                 });
+            }
+            case GameState.LEVEL_SELECT -> {
+                
             }
         }
     }
