@@ -24,7 +24,8 @@ public class EntityFactory {
 
     private static DataArray getLevelData(String levelId) {
         Gson gson = new Gson();
-        InputStreamReader reader = new InputStreamReader(Gson.class.getResourceAsStream("/Level_" + levelId + ".json"));
+        InputStreamReader reader =
+                new InputStreamReader(EntityFactory.class.getResourceAsStream("/" + levelId + ".json"));
         return gson.fromJson(reader, DataArray.class);
     }
 
