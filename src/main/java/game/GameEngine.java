@@ -45,10 +45,11 @@ public class GameEngine implements GameEventObserver {
                     lastFrame = now;
                     switch (gameState) {
                         case GameState.START_MENU -> {}
-                        case GameState.LEVEL -> levelLoader.updateLevel();    
+                        case GameState.LEVEL_SELECT -> {}
+                        case GameState.LEVEL -> levelLoader.updateLevel();
                     }
-                }    
-                    
+                }
+
             }
         };
         timer.start();
