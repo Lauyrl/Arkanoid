@@ -9,26 +9,30 @@ public class Brick extends StaticEntity implements Collidable, Destructible {
     private int hp;
     private BrickState brickState;
     private static final Map<BrickState, SpriteUtil> spriteArrayMap = Map.of(
-            BrickState.HP2, new SpriteUtil(SpriteUtil.BRICK_2, 20),
-        BrickState.NORMAL, new SpriteUtil(SpriteUtil.BRICK_NORMAL, 20),
-        BrickState.BROKEN, new SpriteUtil(SpriteUtil.BRICK_NORMAL, 20)
+        BrickState.BRICK_NORMAL_2, new SpriteUtil(SpriteUtil.BRICK_NORMAL_2, 20),
+        BrickState.BRICK_NORMAL_1, new SpriteUtil(SpriteUtil.BRICK_NORMAL_1, 20),
+        BrickState.BROKEN, new SpriteUtil(SpriteUtil.BRICK_NORMAL_1, 20)
     );
 
     private enum BrickState {
-        HP2,NORMAL, BROKEN;
+        BRICK_NORMAL_2, BRICK_NORMAL_1, BROKEN;
     }
 
-    public Brick(double x, double y, double w, double h) {
+    public Brick(double x, double y, double w, double h, int hp) {
         super(x, y, w, h);
-        setState(BrickState.HP2);
-        hp = 2;
+        this.hp = hp;
+        switch (hp) {
+            case 1 -> setState(BrickState.BRICK_NORMAL_1);
+            case 2 -> setState(BrickState.BRICK_NORMAL_2);
+        }
     }
 
     @Override
     public void respondToCollision(MovingEntity e) {
         hp--;
-        if (hp == 1) setState(BrickState.NORMAL);
-        if (hp <= 0) setState(BrickState.BROKEN); 
+        if      (hp == 2) setState(BrickState.BRICK_NORMAL_2);
+        else if (hp == 1) setState(BrickState.BRICK_NORMAL_1);
+        else if (hp <= 0) setState(BrickState.BROKEN); 
     }
 
     @Override
