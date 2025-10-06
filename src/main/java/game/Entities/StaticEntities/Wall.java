@@ -13,7 +13,7 @@ public class Wall extends StaticEntity implements Collidable {
     
     @Override
     public void update() {
-        setCurrentSprite(new SpriteUtil(SpriteUtil.BRICK_NORMAL, 1));
+        setCurrentSprite(new SpriteUtil(SpriteUtil.BRICK_NORMAL_1, 1));
     }
 
     @Override

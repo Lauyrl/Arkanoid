@@ -28,7 +28,7 @@ public class UILoader {
                 setButtonBounds(start, 610, 400, 300, 80);
                 root.getChildren().add(menu);
 
-                start.setOnMouseClicked(e -> {
+                start.setOnMouseClicked(_ -> {
                     subscriber.listenLevelSelectMenu();
                     root.getChildren().remove(menu);
                 });
@@ -43,15 +43,15 @@ public class UILoader {
                 setButtonBounds(pause,100, 400,100,100);
                 root.getChildren().add(options);
 
-                pause.setOnMouseClicked(e->{
+                pause.setOnMouseClicked(_ -> {
                     subscriber.listenPause();
                 });
-                reset.setOnMouseClicked(e -> {
+                reset.setOnMouseClicked(_ -> {
                     cleanBackground();
                     subscriber.listenReloadLevel();
                     root.getChildren().remove(options);
                 });
-                exit.setOnMouseClicked(e -> {
+                exit.setOnMouseClicked(_ -> {
                     cleanBackground();
                     subscriber.listenStartMenu();
                     root.getChildren().remove(options);
@@ -67,28 +67,27 @@ public class UILoader {
                 setButtonBounds(back, 610, 500, 300, 80);
                 root.getChildren().add(selectMenu);
 
-                level0.setOnMouseClicked(e -> {
+                level0.setOnMouseClicked(_ -> {
                     root.getChildren().remove(selectMenu);
                     subscriber.listenLoadLevel("Level_0");
                 });
-                level1.setOnMouseClicked(e -> {
+                level1.setOnMouseClicked(_ -> {
                     root.getChildren().remove(selectMenu);
                     subscriber.listenLoadLevel("Level_1");
                 });
-                back.setOnMouseClicked(e -> {
+                back.setOnMouseClicked(_ -> {
                     root.getChildren().remove(selectMenu);
                     subscriber.listenStartMenu();
                 });
             }
-            //game pause
             case GameState.PAUSED -> {
                 Pane pauseMenu = new Pane();
                 Button unPause = new Button("Continue");
                 setButtonBounds(unPause,610, 400, 300, 80);
                 pauseMenu.getChildren().add(unPause);
                 root.getChildren().add(pauseMenu);
-                //when click Continue
-                unPause.setOnMouseClicked(e ->{
+
+                unPause.setOnMouseClicked(_ -> {
                     root.getChildren().remove(pauseMenu);
                     subscriber.listenUnPause();
                 });
