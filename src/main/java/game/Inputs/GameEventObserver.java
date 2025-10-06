@@ -5,4 +5,6 @@ public interface GameEventObserver {
     public void listenLevelSelectMenu();
     public void listenLoadLevel(String levelId);
     public void listenReloadLevel();
+    public void listenPause();
+    public void listenUnPause();
 }

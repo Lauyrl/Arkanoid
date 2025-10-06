@@ -35,10 +35,16 @@ public class UILoader {
             case GameState.LEVEL -> {
                 Button reset = new Button("RESET");
                 Button exit = new Button("EXIT");
-                Pane options = new Pane(reset, exit);
+                Button pause = new Button("PAUSE");
+                Pane options = new Pane(reset, exit, pause);
                 setButtonBounds(exit, 100, 100, 100, 100);
                 setButtonBounds(reset, 100, 250, 100, 100);
+                setButtonBounds(pause,100, 400,100,100);
                 root.getChildren().add(options);
+
+                pause.setOnMouseClicked(e->{
+                    subscriber.listenPause();
+                });
                 reset.setOnMouseClicked(e -> {
                     cleanBackground();
                     subscriber.listenReloadLevel();
@@ -80,6 +86,19 @@ public class UILoader {
                 back.setOnMouseClicked(e -> {
                     root.getChildren().remove(selectMenu);
                     subscriber.listenStartMenu();
+                });
+            }
+            //game pause
+            case GameState.PAUSED -> {
+                Pane pauseMenu = new Pane();
+                Button unPause = new Button("Continue");
+                setButtonBounds(unPause,610, 400, 300, 80);
+                pauseMenu.getChildren().add(unPause);
+                root.getChildren().add(pauseMenu);
+                //when click Continue
+                unPause.setOnMouseClicked(e ->{
+                    root.getChildren().remove(pauseMenu);
+                    subscriber.listenUnPause();
                 });
             }
         }
