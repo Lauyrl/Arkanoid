@@ -27,6 +27,7 @@ public class UILoader {
                 Pane menu = new Pane(start);
                 setButtonBounds(start, 610, 400, 300, 80);
                 root.getChildren().add(menu);
+
                 start.setOnMouseClicked(e -> {
                     subscriber.listenLevelSelectMenu();
                     root.getChildren().remove(menu);
@@ -57,32 +58,23 @@ public class UILoader {
                 });
             }
             case GameState.LEVEL_SELECT -> {
-                Pane selectMenu = new Pane();
-
-                // các nút để chọn level 0 hoặc 1, có thêm nút back để quay trở lại màn hình ban đầu
                 Button level0 = new Button("Level 0");
                 Button level1 = new Button("Level 1");
                 Button back = new Button("Back");
-
+                Pane selectMenu = new Pane(level0, level1, back);
                 setButtonBounds(level0, 610, 300, 300, 80);
                 setButtonBounds(level1, 610, 400, 300, 80);
                 setButtonBounds(back, 610, 500, 300, 80);
-
-                // thêm nút vaò giao diện
-                selectMenu.getChildren().addAll(level0, level1, back);
                 root.getChildren().add(selectMenu);
 
-                // xử lý khi nhấn nút
                 level0.setOnMouseClicked(e -> {
                     root.getChildren().remove(selectMenu);
                     subscriber.listenLoadLevel("Level_0");
                 });
-
                 level1.setOnMouseClicked(e -> {
                     root.getChildren().remove(selectMenu);
                     subscriber.listenLoadLevel("Level_1");
                 });
-
                 back.setOnMouseClicked(e -> {
                     root.getChildren().remove(selectMenu);
                     subscriber.listenStartMenu();

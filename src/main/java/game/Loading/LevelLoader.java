@@ -29,7 +29,7 @@ public class LevelLoader {
 
     public void updateLevel() {
         entityRenderer.clearCanvas();
-        CollisionHandler.handleCollision(movingEntityList, staticEntityList, 2);
+        CollisionHandler.handleCollision(movingEntityList, staticEntityList, 1);
         removeDestroyedEntities();
         for (MovingEntity e : movingEntityList) {
             if (e instanceof Paddle) {

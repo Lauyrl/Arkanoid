@@ -67,13 +67,12 @@ public class GameEngine implements GameEventObserver {
     @Override
     public void listenLoadLevel(String levelId) {
         setState(GameState.LEVEL);
-        uiLoader.loadBackground(SpriteUtil.BACKGROUND);
         levelLoader.loadLevel(levelId);
+        uiLoader.loadBackground(SpriteUtil.BACKGROUND);
     }
 
     @Override
     public void listenReloadLevel() {
-        levelLoader.clean();
         listenLoadLevel(levelLoader.getCurrentLevelId());
     }
 
@@ -89,6 +88,6 @@ public class GameEngine implements GameEventObserver {
 
     @Override
     public void listenUnPause() {
-        setState(GameState.LEVEL);
+        this.gameState = GameState.LEVEL;
     }
 }
