@@ -9,23 +9,25 @@ public class Brick extends StaticEntity implements Collidable, Destructible {
     private int hp;
     private BrickState brickState;
     private static final Map<BrickState, SpriteUtil> spriteArrayMap = Map.of(
+            BrickState.HP2, new SpriteUtil(SpriteUtil.BRICK_2, 20),
         BrickState.NORMAL, new SpriteUtil(SpriteUtil.BRICK_NORMAL, 20),
         BrickState.BROKEN, new SpriteUtil(SpriteUtil.BRICK_NORMAL, 20)
     );
 
     private enum BrickState {
-        NORMAL, BROKEN;
+        HP2,NORMAL, BROKEN;
     }
 
     public Brick(double x, double y, double w, double h) {
         super(x, y, w, h);
-        setState(BrickState.NORMAL);
-        hp = 1;
+        setState(BrickState.HP2);
+        hp = 2;
     }
 
     @Override
     public void respondToCollision(MovingEntity e) {
         hp--;
+        if (hp == 1) setState(BrickState.NORMAL);
         if (hp <= 0) setState(BrickState.BROKEN); 
     }
 
