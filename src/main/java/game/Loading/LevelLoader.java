@@ -11,6 +11,7 @@ import game.Renderering.Renderer;
 public class LevelLoader {
     private ArrayList<MovingEntity> movingEntityList = new ArrayList<>();
     private ArrayList<StaticEntity> staticEntityList = new ArrayList<>();
+    private Paddle paddle;
     private InputHandler inputHandler;
     private Renderer entityRenderer;
     private String currentLevelId = "";
@@ -21,10 +22,12 @@ public class LevelLoader {
     }
 
     public void loadLevel(String levelId) {
+        clean();
         currentLevelId = levelId;
         staticEntityList = new ArrayList<>();
         movingEntityList = new ArrayList<>();
         EntityFactory.produceEntities(levelId, movingEntityList, staticEntityList);
+        paddle = EntityFactory.getPaddle();
     }
 
     public void updateLevel() {
