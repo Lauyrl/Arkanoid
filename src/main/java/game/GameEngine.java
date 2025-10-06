@@ -21,7 +21,7 @@ public class GameEngine implements GameEventObserver {
     private final long interval = 1000000000 / 60;
 
     public enum GameState {
-        START_MENU, LEVEL_SELECT, LEVEL
+        START_MENU, LEVEL_SELECT, LEVEL, PAUSED
     }
 
     private GameEngine(StackPane sp, Canvas backgroundCanvas, Canvas entityCanvas, Canvas uiCanvas, Scene scene) {
@@ -47,8 +47,7 @@ public class GameEngine implements GameEventObserver {
                         case GameState.START_MENU -> {}
                         case GameState.LEVEL -> levelLoader.updateLevel();    
                     }
-                }    
-                    
+                }
             }
         };
         timer.start();
@@ -81,5 +80,15 @@ public class GameEngine implements GameEventObserver {
     @Override
     public void listenLevelSelectMenu() {
         setState(GameState.LEVEL_SELECT);
+    }
+
+    @Override
+    public void listenPause() {
+        setState(GameState.PAUSED);
+    }
+
+    @Override
+    public void listenUnPause() {
+        setState(GameState.LEVEL);
     }
 }
