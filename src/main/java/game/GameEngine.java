@@ -29,7 +29,7 @@ public class GameEngine implements GameEventObserver {
     private GameEngine(StackPane sp, Canvas backgroundCanvas, Canvas entityCanvas, Canvas uiCanvas, Scene scene) {
         levelLoader = new LevelLoader(entityCanvas, new InputHandler(scene));
         uiLoader = new UILoader(backgroundCanvas, sp, this);
-        player = new Player(3, 0) // 3 mạng, 0 điểm
+        player = new Player(3);
         setState(GameState.START_MENU);
     }
 
