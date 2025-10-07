@@ -1,5 +1,6 @@
 package game;
 
+import game.Entities.Player;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -16,6 +17,7 @@ public class GameEngine implements GameEventObserver {
     private GameState gameState;
     private LevelLoader levelLoader;
     private UILoader uiLoader;
+    private Player player;
     //framerate restriction
     private long lastFrame = 0;
     private final long interval = 1000000000 / 60;
@@ -27,6 +29,7 @@ public class GameEngine implements GameEventObserver {
     private GameEngine(StackPane sp, Canvas backgroundCanvas, Canvas entityCanvas, Canvas uiCanvas, Scene scene) {
         levelLoader = new LevelLoader(entityCanvas, new InputHandler(scene));
         uiLoader = new UILoader(backgroundCanvas, sp, this);
+        player = new Player(3, 0) // 3 mạng, 0 điểm
         setState(GameState.START_MENU);
     }
 
@@ -45,7 +48,7 @@ public class GameEngine implements GameEventObserver {
                     lastFrame = now;
                     switch (gameState) {
                         case GameState.START_MENU -> {}
-                        case GameState.LEVEL -> levelLoader.updateLevel();    
+                        case GameState.LEVEL -> levelLoader.updateLevel();
                     }
                 }
             }
