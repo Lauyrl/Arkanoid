@@ -17,6 +17,9 @@ public class EntityFactory {
         String type;
         double x, y, w, h;
         int hp;
+        int dir;
+        double vel; 
+        double leftBound, rightBound, upperBound, lowerBound; 
     }
 
     private class OtherData {
@@ -36,6 +39,7 @@ public class EntityFactory {
         for (BrickData b : data.bricks) {
             switch (b.type) {
                 case "brick"  -> staticEntityList.add(new Brick(b.x, b.y, b.w, b.h, b.hp));
+                case "brick moving" -> staticEntityList.add(new Brick(b.x, b.y, b.w, b.h, b.hp, Brick.MovementMode.HORIZONTAL, b.dir, b.vel, b.leftBound, b.rightBound, b.upperBound, b.lowerBound));
             }
         }
         for (OtherData b : data.other) {
