@@ -8,6 +8,7 @@ public class SpriteUtil {
     public static final Image[] BRICK_NORMAL_1 = {Renderer.loadImage("/assets/Brick.png")};
     public static final Image[] BRICK_NORMAL_2 = {Renderer.loadImage("/assets/bluebrick.png")};
     public static final Image[] PADDLE_NORMAL = {Renderer.loadImage("/assets/Paddle.png")};
+    public static final Image[] LENGTH = {Renderer.loadImage("/assets/poweuptest.png")};
     public static final Image BACKGROUND = Renderer.loadImage("/assets/yep.png");
     public final Image[] sprites;
     public final int duration; 

@@ -3,6 +3,7 @@ package game.Loading;
 import game.Entities.*;
 import game.Entities.MovingEntities.*;
 import game.Entities.StaticEntities.Collidable;
+import game.Entities.StaticEntities.PowerUp;
 import game.Entities.StaticEntities.StaticEntity;
 import java.util.ArrayList;
 
@@ -38,6 +39,11 @@ public class CollisionHandler {
         if (a instanceof Paddle && b instanceof Collidable) {
             a.setX(a.getX() + Math.copySign(xOverlap, aRelativeXb));
             a.setVelX(0);
+        } 
+
+        if (a instanceof Paddle && b instanceof PowerUp) {
+            ((Paddle) a).consumePowerUp(((PowerUp) b).getPowerUpType());
+            ((PowerUp) b).setConsumed();
         } 
 
         else if (a instanceof Paddle && b instanceof Bouncy) {

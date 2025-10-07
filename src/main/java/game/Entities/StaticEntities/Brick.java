@@ -3,7 +3,6 @@ package game.Entities.StaticEntities;
 import game.Entities.Destructible;
 import game.Entities.SpriteUtil;
 import game.Entities.MovingEntities.MovingEntity;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class Brick extends StaticEntity implements Collidable, Destructible {
@@ -50,8 +49,8 @@ public class Brick extends StaticEntity implements Collidable, Destructible {
         setHp(hp - 1);
     }
 
-    public void spawnPowerUp(ArrayList<StaticEntity> entityList) {
-        
+    public PowerUp spawnPowerUp() {
+        return new PowerUp(getX() + getWidth() / 2, getY());
     }
 
     @Override
