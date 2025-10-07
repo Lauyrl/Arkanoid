@@ -8,9 +8,7 @@ import game.Inputs.InputHandler;
 import game.Renderering.Renderer;
 
 public class LevelLoader {
-    private ArrayList<DynamicEntity> movingEntityList = new ArrayList<>();
-    private ArrayList<StaticEntity> staticEntityList = new ArrayList<>();
-    private Paddle paddle;
+    private EntityManager entityManager = new EntityManager(new ArrayList<>(), new ArrayList<>());
     private InputHandler inputHandler;
     private Renderer entityRenderer;
     private String currentLevelId = "";
@@ -23,37 +21,27 @@ public class LevelLoader {
     public void loadLevel(String levelId) {
         clean();
         currentLevelId = levelId;
-        staticEntityList = new ArrayList<>();
-        movingEntityList = new ArrayList<>();
-        EntityFactory.produceEntities(levelId, movingEntityList, staticEntityList);
-        paddle = EntityFactory.getPaddle();
+        entityManager = new EntityManager(new ArrayList<>(), new ArrayList<>());
+        EntityFactory.produceEntities(levelId, entityManager.getDynamicEntities(), entityManager.getStaticEntities());
+        entityManager.paddle = EntityFactory.getPaddle();
     }
 
     public void updateLevel() {
         entityRenderer.clearCanvas();
-        CollisionHandler.handleCollision(movingEntityList, staticEntityList, 1);
-        EntityManager.removeDestroyedEntities(movingEntityList, staticEntityList);
-        for (DynamicEntity e : movingEntityList) {
-            if (e instanceof Paddle) {
-                ((Paddle) e).respondToInput(inputHandler.getKeysPressed()); 
-            }
-            else if (e instanceof Ball && ((Ball) e).isOutOfBounds()) {
-                e.setX(paddle.getX() + paddle.getWidth() / 2);
-                e.setY(paddle.getY() - e.getWidth() - 1);
-            }
-            e.update();
+        entityManager.removeDestroyedEntities();
+        entityManager.propagateInput(inputHandler.getKeysPressed());
+        entityManager.updateEntities();
+        for (DynamicEntity e : entityManager.getDynamicEntities()) {
             entityRenderer.render(e);
         }
-        for (StaticEntity e : staticEntityList) {
-            e.update();
+        for (StaticEntity e : entityManager.getStaticEntities()) {
             entityRenderer.render(e);
         }
     }
 
     public void clean() {
         entityRenderer.clearCanvas();
-        staticEntityList.clear();
-        movingEntityList.clear();
+        entityManager.clean();
     }
 
     public String getCurrentLevelId() {
