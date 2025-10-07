@@ -1,11 +1,11 @@
-package game.Entities.MovingEntities;
+package game.Entities.DynamicEntities;
 
 import game.Entities.SpriteUtil;
 import game.Entities.StaticEntities.PowerUp.PowerUpType;
 import java.util.Set;
 import javafx.scene.input.KeyCode;
 
-public class Paddle extends MovingEntity {
+public class Paddle extends DynamicEntity {
     private static final double DEFAULT_WIDTH = 200;
     private static final double DEFAULT_HEIGHT = 40;
     private PowerUpType currentPowerUp;

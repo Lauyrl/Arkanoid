@@ -2,13 +2,13 @@ package game.Loading;
 
 import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
-import game.Entities.MovingEntities.*;
+import game.Entities.DynamicEntities.*;
 import game.Entities.StaticEntities.*;
 import game.Inputs.InputHandler;
 import game.Renderering.Renderer;
 
 public class LevelLoader {
-    private ArrayList<MovingEntity> movingEntityList = new ArrayList<>();
+    private ArrayList<DynamicEntity> movingEntityList = new ArrayList<>();
     private ArrayList<StaticEntity> staticEntityList = new ArrayList<>();
     private Paddle paddle;
     private InputHandler inputHandler;
@@ -33,7 +33,7 @@ public class LevelLoader {
         entityRenderer.clearCanvas();
         CollisionHandler.handleCollision(movingEntityList, staticEntityList, 1);
         EntityManager.removeDestroyedEntities(movingEntityList, staticEntityList);
-        for (MovingEntity e : movingEntityList) {
+        for (DynamicEntity e : movingEntityList) {
             if (e instanceof Paddle) {
                 ((Paddle) e).respondToInput(inputHandler.getKeysPressed()); 
             }

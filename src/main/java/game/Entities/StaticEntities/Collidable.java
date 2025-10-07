@@ -1,7 +1,7 @@
 package game.Entities.StaticEntities;
 
-import game.Entities.MovingEntities.MovingEntity;
+import game.Entities.DynamicEntities.DynamicEntity;
 
 public interface Collidable {
-    public void respondToCollision(MovingEntity e);
+    public void respondToCollision(DynamicEntity e);
 }

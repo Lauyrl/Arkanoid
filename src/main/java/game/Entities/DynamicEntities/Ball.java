@@ -1,9 +1,9 @@
-package game.Entities.MovingEntities;
+package game.Entities.DynamicEntities;
 
 import game.Entities.SpriteUtil;
 import java.util.Map;
 
-public class Ball extends MovingEntity implements Bouncy {
+public class Ball extends DynamicEntity implements Bouncy {
     private BallState ballState;
     private static final Map<BallState, SpriteUtil> spriteArrayMap = Map.of(
         BallState.MOVING, new SpriteUtil(SpriteUtil.BALL_MOVING, 20),

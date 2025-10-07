@@ -1,13 +1,13 @@
 package game.Loading;
 
 import game.Entities.Destructible;
-import game.Entities.MovingEntities.MovingEntity;
+import game.Entities.DynamicEntities.DynamicEntity;
 import game.Entities.StaticEntities.Brick;
 import game.Entities.StaticEntities.StaticEntity;
 import java.util.ArrayList;
 
 public class EntityManager {
-    public static void removeDestroyedEntities(ArrayList<MovingEntity> movingEntities, ArrayList<StaticEntity> staticEntities) {
+    public static void removeDestroyedEntities(ArrayList<DynamicEntity> movingEntities, ArrayList<StaticEntity> staticEntities) {
         for (int i = movingEntities.size() - 1; i >= 0; i--) {
             if (movingEntities.get(i) instanceof Destructible && ((Destructible) movingEntities.get(i)).isDestroyed()) {
                 movingEntities.remove(i);   

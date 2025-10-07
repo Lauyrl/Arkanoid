@@ -2,7 +2,7 @@ package game.Entities.StaticEntities;
 
 import game.Entities.Destructible;
 import game.Entities.SpriteUtil;
-import game.Entities.MovingEntities.MovingEntity;
+import game.Entities.DynamicEntities.DynamicEntity;
 import java.util.Map;
 
 public class Brick extends StaticEntity implements Collidable, Destructible {
@@ -45,7 +45,7 @@ public class Brick extends StaticEntity implements Collidable, Destructible {
     }
 
     @Override
-    public void respondToCollision(MovingEntity e) {
+    public void respondToCollision(DynamicEntity e) {
         setHp(hp - 1);
     }
 

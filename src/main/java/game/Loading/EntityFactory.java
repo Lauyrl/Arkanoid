@@ -1,7 +1,7 @@
 package game.Loading;
 
 import com.google.gson.Gson;
-import game.Entities.MovingEntities.*;
+import game.Entities.DynamicEntities.*;
 import game.Entities.StaticEntities.*;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class EntityFactory {
         return gson.fromJson(reader, DataArray.class);
     }
 
-    public static void produceEntities(String levelId, ArrayList<MovingEntity> movingEntityList, ArrayList<StaticEntity> staticEntityList) {
+    public static void produceEntities(String levelId, ArrayList<DynamicEntity> movingEntityList, ArrayList<StaticEntity> staticEntityList) {
         DataArray data = getLevelData(levelId);
         for (BrickData b : data.bricks) {
             switch (b.type) {
