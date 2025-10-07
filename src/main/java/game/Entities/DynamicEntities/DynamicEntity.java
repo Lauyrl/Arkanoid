@@ -1,11 +1,11 @@
-package game.Entities.MovingEntities;
+package game.Entities.DynamicEntities;
 
 import game.Entities.Entity;
 
-public abstract class MovingEntity extends Entity {
+public abstract class DynamicEntity extends Entity {
     private double velX, velY;
 
-    public MovingEntity(double x, double y, double w, double h, double velX, double velY) {
+    public DynamicEntity(double x, double y, double w, double h, double velX, double velY) {
         super(x, y, w, h);
         this.velX = velX;
         this.velY = velY;

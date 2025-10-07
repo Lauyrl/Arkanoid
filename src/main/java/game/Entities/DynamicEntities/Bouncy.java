@@ -1,4 +1,4 @@
-package game.Entities.MovingEntities;
+package game.Entities.DynamicEntities;
 
 public interface Bouncy { 
     public void bounceX();

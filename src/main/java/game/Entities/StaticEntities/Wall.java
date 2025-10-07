@@ -1,7 +1,7 @@
 package game.Entities.StaticEntities;
 
 import game.Entities.SpriteUtil;
-import game.Entities.MovingEntities.MovingEntity;
+import game.Entities.DynamicEntities.DynamicEntity;
 
 public class Wall extends StaticEntity implements Collidable {
     public Wall(double x, double y, double w, double h) {
@@ -9,7 +9,7 @@ public class Wall extends StaticEntity implements Collidable {
     }
 
     @Override
-    public void respondToCollision(MovingEntity e) {}
+    public void respondToCollision(DynamicEntity e) {}
     
     @Override
     public void update() {

@@ -1,9 +1,9 @@
-package game.Entities.MovingEntities;
+package game.Entities.DynamicEntities;
 
 import game.Entities.SpriteUtil;
 import java.util.Map;
 
-public class Ball extends MovingEntity implements Bouncy {
+public class Ball extends DynamicEntity implements Bouncy {
     private BallState ballState;
     private static final Map<BallState, SpriteUtil> spriteArrayMap = Map.of(
         BallState.MOVING, new SpriteUtil(SpriteUtil.BALL_MOVING, 20),
@@ -20,7 +20,7 @@ public class Ball extends MovingEntity implements Bouncy {
     }
 
     public boolean isOutOfBounds(){
-        return (getY() > 1080);
+        return (getY() > 1150);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class Ball extends MovingEntity implements Bouncy {
     @Override
     public void bounceOffPaddle(double paddleCenterX, double paddleWidth) {
         double delta = (getCenter()[0] - paddleCenterX) / (paddleWidth / 2); 
-        double maxAngle = Math.toRadians(75);
+        double maxAngle = Math.toRadians(60);
         double theta = delta * maxAngle;
         double vel = Math.sqrt(getVelX() * getVelX() + getVelY() * getVelY());
         setVelX(vel * Math.sin(theta));
