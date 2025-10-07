@@ -19,6 +19,10 @@ public class Ball extends MovingEntity implements Bouncy {
         setState(BallState.MOVING);
     }
 
+    public boolean isOutOfBounds(){
+        return (getY() > 1080);
+    }
+
     @Override
     public void bounceX() {
         setVelX(-getVelX());
