@@ -41,28 +41,25 @@ public class CollisionHandler {
             a.setVelX(0);
         } 
 
-        if (a instanceof Paddle && b instanceof PowerUp) {
+        else if (a instanceof Paddle && b instanceof PowerUp) {
             ((Paddle) a).consumePowerUp(((PowerUp) b).getPowerUpType());
             ((PowerUp) b).setConsumed();
         } 
 
-        else if (a instanceof Paddle && b instanceof Bouncy) {
-            if (xOverlap < yOverlap) {
-                b.setX(b.getX() - Math.copySign(xOverlap, aRelativeXb));
-                ((Bouncy) b).bounceX();
-            } else {
-                b.setY(b.getY() - Math.copySign(yOverlap, aRelativeYb));
-                ((Bouncy) b).bounceOffPaddle(a.getCenter()[0], a.getWidth());
+        else if ((a instanceof Bouncy && b instanceof Paddle) || (a instanceof Paddle && b instanceof Bouncy)) {
+            if (a instanceof Paddle) {
+                Entity paddle = a;
+                a = (DynamicEntity) b;
+                b = paddle;
             }
-        } 
-
-        else if (a instanceof Bouncy && b instanceof Paddle) {
             if (xOverlap < yOverlap) {
                 a.setX(a.getX() + Math.copySign(xOverlap, aRelativeXb));
                 ((Bouncy) a).bounceX();
             } else {
                 a.setY(a.getY() + Math.copySign(yOverlap, aRelativeYb));
-                ((Bouncy) a).bounceOffPaddle(b.getCenter()[0], b.getWidth());
+                if (a.getY() <= b.getY()) {
+                    ((Bouncy) a).bounceOffPaddle(b.getCenter()[0], b.getWidth());
+                }
             }
         } 
 
