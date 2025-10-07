@@ -1,8 +1,9 @@
 package game.Loading;
 
 import game.Entities.*;
-import game.Entities.MovingEntities.*;
+import game.Entities.DynamicEntities.*;
 import game.Entities.StaticEntities.Collidable;
+import game.Entities.StaticEntities.PowerUp;
 import game.Entities.StaticEntities.StaticEntity;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ public class CollisionHandler {
              && a.getBottomBound() > b.getTopBound() && a.getTopBound() < b.getBottomBound());
     }
 
-    public static void handleCollision(ArrayList<MovingEntity> movingEntityList, ArrayList<StaticEntity> staticEntityList, int iterations) {
+    public static void handleCollision(ArrayList<DynamicEntity> movingEntityList, ArrayList<StaticEntity> staticEntityList, int iterations) {
         for (int t = 0; t < iterations; t++) {
             for (int i = 0; i < movingEntityList.size(); i++) {
                 for (int j = 0; j < staticEntityList.size(); j++) {
@@ -29,7 +30,7 @@ public class CollisionHandler {
         }
     }
 
-    public static void resolveCollision(MovingEntity a, Entity b) {
+    public static void resolveCollision(DynamicEntity a, Entity b) {
         double xOverlap = Math.min(a.getRightBound(), b.getRightBound()) - Math.max(a.getLeftBound(), b.getLeftBound());
         double yOverlap = Math.min(a.getBottomBound(), b.getBottomBound()) - Math.max(a.getTopBound(), b.getTopBound());
         double aRelativeXb = a.getCenter()[0] - b.getCenter()[0];
@@ -38,6 +39,11 @@ public class CollisionHandler {
         if (a instanceof Paddle && b instanceof Collidable) {
             a.setX(a.getX() + Math.copySign(xOverlap, aRelativeXb));
             a.setVelX(0);
+        } 
+
+        if (a instanceof Paddle && b instanceof PowerUp) {
+            ((Paddle) a).consumePowerUp(((PowerUp) b).getPowerUpType());
+            ((PowerUp) b).setConsumed();
         } 
 
         else if (a instanceof Paddle && b instanceof Bouncy) {

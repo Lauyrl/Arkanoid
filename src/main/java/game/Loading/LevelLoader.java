@@ -2,14 +2,13 @@ package game.Loading;
 
 import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
-import game.Entities.Destructible;
-import game.Entities.MovingEntities.*;
+import game.Entities.DynamicEntities.*;
 import game.Entities.StaticEntities.*;
 import game.Inputs.InputHandler;
 import game.Renderering.Renderer;
 
 public class LevelLoader {
-    private ArrayList<MovingEntity> movingEntityList = new ArrayList<>();
+    private ArrayList<DynamicEntity> movingEntityList = new ArrayList<>();
     private ArrayList<StaticEntity> staticEntityList = new ArrayList<>();
     private Paddle paddle;
     private InputHandler inputHandler;
@@ -33,16 +32,15 @@ public class LevelLoader {
     public void updateLevel() {
         entityRenderer.clearCanvas();
         CollisionHandler.handleCollision(movingEntityList, staticEntityList, 1);
-        removeDestroyedEntities();
-        for (MovingEntity e : movingEntityList) {
+        EntityManager.removeDestroyedEntities(movingEntityList, staticEntityList);
+        for (DynamicEntity e : movingEntityList) {
             if (e instanceof Paddle) {
                 ((Paddle) e).respondToInput(inputHandler.getKeysPressed()); 
             }
             else if (e instanceof Ball && ((Ball) e).isOutOfBounds()) {
-                e.setX(paddle.getX() + paddle.getWidth()/2 );
+                e.setX(paddle.getX() + paddle.getWidth() / 2);
                 e.setY(paddle.getY() - e.getWidth() - 1);
             }
-
             e.update();
             entityRenderer.render(e);
         }
@@ -50,11 +48,6 @@ public class LevelLoader {
             e.update();
             entityRenderer.render(e);
         }
-    }
-
-    private void removeDestroyedEntities() {
-        movingEntityList.removeIf(entity -> entity instanceof Destructible && ((Destructible) entity).isDestroyed());
-        staticEntityList.removeIf(entity -> entity instanceof Destructible && ((Destructible) entity).isDestroyed());
     }
 
     public void clean() {
