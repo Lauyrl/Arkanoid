@@ -38,6 +38,11 @@ public class LevelLoader {
             if (e instanceof Paddle) {
                 ((Paddle) e).respondToInput(inputHandler.getKeysPressed()); 
             }
+            else if (e instanceof Ball && ((Ball) e).isOutOfBounds()) {
+                e.setX(paddle.getX() + paddle.getWidth()/2 );
+                e.setY(paddle.getY() - e.getWidth() - 1);
+            }
+
             e.update();
             entityRenderer.render(e);
         }
