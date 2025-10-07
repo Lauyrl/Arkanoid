@@ -20,7 +20,7 @@ public class Ball extends DynamicEntity implements Bouncy {
     }
 
     public boolean isOutOfBounds(){
-        return (getY() > 1150);
+        return (getY() > 1300);
     }
 
     @Override
