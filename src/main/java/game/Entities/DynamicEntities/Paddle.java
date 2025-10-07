@@ -29,16 +29,16 @@ public class Paddle extends DynamicEntity {
 
     public void respondToInput(Set<KeyCode> set) {
         if (set.contains(KeyCode.A)) {
-            setVelX(-20);
+            setVelX(-30);
         } else if (set.contains(KeyCode.D)) {
-            setVelX(20);
+            setVelX(30);
         }
     }
 
     public void consumePowerUp(PowerUpType type) {
         resetPowerUp();
         currentPowerUp = type;
-        switch (type) {
+        switch (currentPowerUp) {
             case PowerUpType.LENGTH -> {
                 setX(getX() - 40);
                 setWidth(getWidth() + 80);
