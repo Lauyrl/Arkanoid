@@ -17,6 +17,7 @@ public class EntityFactory {
         String type;
         double x, y, w, h;
         int hp;
+        boolean isMoving = false;
     }
 
     private class OtherData {
@@ -34,8 +35,11 @@ public class EntityFactory {
     public static void produceEntities(String levelId, ArrayList<MovingEntity> movingEntityList, ArrayList<StaticEntity> staticEntityList) {
         DataArray data = getLevelData(levelId);
         for (BrickData b : data.bricks) {
-            switch (b.type) {
-                case "brick"  -> staticEntityList.add(new Brick(b.x, b.y, b.w, b.h, b.hp));
+            if(b.isMoving){
+                staticEntityList.add(new MovingBrick(b.x, b.y, b.w, b.h, b.hp));
+            }
+            else {
+                staticEntityList.add(new Brick(b.x, b.y, b.w, b.h, b.hp));
             }
         }
         for (OtherData b : data.other) {
