@@ -49,7 +49,7 @@ public class EntityManager {
         for (StaticEntity e : staticEntities) {
             e.update();
         }
-        CollisionHandler.handleCollision(dynamicEntities, staticEntities, 1);
+        CollisionHandler.handleCollision(dynamicEntities, staticEntities, 2);
     }
 
     public void clean() {

@@ -1,6 +1,6 @@
 {
   "other": [
-    {"type": "ball", "x": 960, "y": 880, "w": 30, "h": 30},
+    {"type": "ball", "x": 960, "y": 880, "w": 20, "h": 20},
     {"type": "paddle", "x": 880, "y": 1000, "w": 200, "h": 40},
 
     {"type": "wall", "x": 525 , "y": 0, "w": 50, "h": 1150},
@@ -39,7 +39,8 @@
     {"type": "brick", "x": 1090, "y": 370, "w": 70, "h": 40, "hp": 2 },
     {"type": "brick", "x": 1160, "y": 370, "w": 70, "h": 40, "hp": 2 },
     {"type": "brick moving", "x": 1160, "y": 450, "w": 70, "h": 40, "hp": 2, "dir": 1, "vel": 10, "leftBound": 670, "rightBound": 1160},
+    {"type": "brick moving", "x": 1160, "y": 490, "w": 70, "h": 40, "hp": 2, "dir": 1, "vel": 10, "leftBound": 670, "rightBound": 1160},
     {"type": "brick moving", "x": 910, "y": 530, "w": 70, "h": 40, "hp": 1, "dir": 1, "vel": 10, "leftBound": 670, "rightBound": 1160},
-    {"type": "brick moving", "x": 670, "y": 610, "w": 70, "h": 40, "hp": 2, "dir": 1, "vel": 10, "leftBound": 670, "rightBound": 1160}
+    {"type": "brick moving", "x": 910, "y": 570, "w": 70, "h": 40, "hp": 1, "dir": 1, "vel": 10, "leftBound": 670, "rightBound": 1160}
   ]
 }
