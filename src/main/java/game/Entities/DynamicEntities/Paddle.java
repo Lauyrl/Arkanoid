@@ -1,11 +1,12 @@
 package game.Entities.DynamicEntities;
 
 import game.Entities.SpriteUtil;
+import game.Entities.StaticEntities.Collidable;
 import game.Entities.StaticEntities.PowerUp.PowerUpType;
 import java.util.Set;
 import javafx.scene.input.KeyCode;
 
-public class Paddle extends DynamicEntity {
+public class Paddle extends DynamicEntity implements Collidable {
     private static final double DEFAULT_WIDTH = 200;
     private static final double DEFAULT_HEIGHT = 40;
     private PowerUpType currentPowerUp;
@@ -56,4 +57,7 @@ public class Paddle extends DynamicEntity {
         setX(getX() + 40);
         setWidth(DEFAULT_WIDTH);
     }
+
+    @Override
+    public void respondToCollision(DynamicEntity e) {}
 }

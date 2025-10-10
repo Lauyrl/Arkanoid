@@ -39,6 +39,7 @@ public class Ball extends DynamicEntity implements Bouncy {
         double maxAngle = Math.toRadians(60);
         double theta = delta * maxAngle;
         double vel = Math.sqrt(getVelX() * getVelX() + getVelY() * getVelY());
+        if (!Double.isFinite(vel)) return;
         setVelX(vel * Math.sin(theta));
         setVelY(-vel * Math.cos(theta));
     }

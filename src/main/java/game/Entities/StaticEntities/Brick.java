@@ -41,7 +41,7 @@ public class Brick extends StaticEntity implements Collidable, Destructible {
         switch (movementMode) {
             case STAGNANT -> {}
             case HORIZONTAL -> {horizontalOscillate();}
-       }
+        }
     }
 
     @Override
@@ -50,7 +50,7 @@ public class Brick extends StaticEntity implements Collidable, Destructible {
     }
 
     public PowerUp spawnPowerUp() {
-        return new PowerUp(getX() + getWidth() / 2, getY());
+        return new PowerUp(getX() + getWidth() / 2 - 35, getY());
     }
 
     @Override
