@@ -1,12 +1,14 @@
 package game.Entities.DynamicEntities;
 
+import game.Entities.Entity;
 import game.Entities.SpriteUtil;
-import game.Entities.StaticEntities.Collidable;
+import game.Entities.StaticEntities.PowerUp;
+import game.Entities.StaticEntities.Wall;
 import game.Entities.StaticEntities.PowerUp.PowerUpType;
 import java.util.Set;
 import javafx.scene.input.KeyCode;
 
-public class Paddle extends DynamicEntity implements Collidable {
+public class Paddle extends DynamicEntity {
     private static final double DEFAULT_WIDTH = 200;
     private static final double DEFAULT_HEIGHT = 40;
     private PowerUpType currentPowerUp;
@@ -59,5 +61,24 @@ public class Paddle extends DynamicEntity implements Collidable {
     }
 
     @Override
-    public void respondToCollision(DynamicEntity e) {}
+    public void relayCollision(Entity e, double oldLeft, double oldRight, double oldTop, double oldBot, double tX, double tY) {
+        e.respondToCollisionWithPaddle(this, oldLeft, oldRight, oldTop, oldBot, tX, tY);
+    }
+
+    @Override
+    public void respondToCollisionWithWall(Wall e, double oldLeft, double oldRight, double oldTop, double oldBot, double tX, double tY) {
+        setX(getX() + ((getX() < e.getX()) ? (e.getLeftBound() - getRightBound()) : (e.getRightBound() - getLeftBound())));
+        setVelX(0);
+    }
+
+    @Override
+    public void respondToCollisionWithBall(Ball e, double oldLeft, double oldRight, double oldTop, double oldBot, double tX, double tY) {
+        e.respondToCollisionWithPaddle(this, oldLeft, oldRight, oldTop, oldBot, tX, tY);
+    }
+
+    @Override
+    public void respondToCollisionWithPowerUp(PowerUp e, double oldLeft, double oldRight, double oldTop, double oldBot, double tX, double tY) {
+        consumePowerUp(e.getPowerUpType());
+        e.setConsumed();
+    }
 }

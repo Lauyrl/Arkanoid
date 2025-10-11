@@ -1,6 +1,7 @@
 package game.Entities.StaticEntities;
 
 import game.Entities.Destructible;
+import game.Entities.Entity;
 import game.Entities.SpriteUtil;
 import java.util.Map;
 
@@ -41,5 +42,10 @@ public class PowerUp extends StaticEntity implements Destructible {
 
     public PowerUpType getPowerUpType() {
         return type;
+    }
+
+    @Override
+    public void relayCollision(Entity e, double oldLeft, double oldRight, double oldTop, double oldBot, double tX, double tY) {
+        e.respondToCollisionWithPowerUp(this, oldLeft, oldRight, oldTop, oldBot, tX, tY);
     }
 }

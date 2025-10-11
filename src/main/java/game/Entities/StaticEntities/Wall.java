@@ -1,15 +1,12 @@
 package game.Entities.StaticEntities;
 
+import game.Entities.Entity;
 import game.Entities.SpriteUtil;
-import game.Entities.DynamicEntities.DynamicEntity;
 
-public class Wall extends StaticEntity implements Collidable {
+public class Wall extends StaticEntity {
     public Wall(double x, double y, double w, double h) {
         super(x, y, w, h);
     }
-
-    @Override
-    public void respondToCollision(DynamicEntity e) {}
     
     @Override
     public void update() {
@@ -18,4 +15,9 @@ public class Wall extends StaticEntity implements Collidable {
 
     @Override
     public void setState(Object wallState) {}
+
+    @Override
+    public void relayCollision(Entity e, double oldLeft, double oldRight, double oldTop, double oldBot, double tX, double tY) {
+        e.respondToCollisionWithWall(this, oldLeft, oldRight, oldTop, oldBot, tX, tY);
+    }
 }
