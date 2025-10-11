@@ -1,11 +1,11 @@
 package game.Entities.StaticEntities;
 
 import game.Entities.Destructible;
+import game.Entities.Entity;
 import game.Entities.SpriteUtil;
-import game.Entities.DynamicEntities.DynamicEntity;
 import java.util.Map;
 
-public class Brick extends StaticEntity implements Collidable, Destructible {
+public class Brick extends StaticEntity implements Destructible {
     private int hp;
     private BrickState brickState;
     private MovementMode movementMode;
@@ -44,22 +44,26 @@ public class Brick extends StaticEntity implements Collidable, Destructible {
         }
     }
 
-    @Override
-    public void respondToCollision(DynamicEntity e) {
+    public void loseHp() {
         setHp(hp - 1);
+    }
+    
+    @Override
+    public void relayCollision(Entity e, double oldLeft, double oldRight, double oldTop, double oldBot, double tX, double tY) {
+        e.respondToCollisionWithBrick(this, oldLeft, oldRight, oldTop, oldBot, tX, tY);
     }
 
     public PowerUp spawnPowerUp() {
         return new PowerUp(getX() + getWidth() / 2 - 35, getY());
     }
+    
+    public boolean isDestroyed() {
+        return brickState.equals(BrickState.BROKEN);
+    }
 
     @Override
     public void setState(Object brickState) {
         this.brickState = (BrickState) brickState;
-    }
-
-    public boolean isDestroyed() {
-        return brickState.equals(BrickState.BROKEN);
     }
 
     public void setHp(int hp) {

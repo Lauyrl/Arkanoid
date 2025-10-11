@@ -1,5 +1,10 @@
 package game.Entities;
 
+import game.Entities.DynamicEntities.Ball;
+import game.Entities.DynamicEntities.Paddle;
+import game.Entities.StaticEntities.Brick;
+import game.Entities.StaticEntities.PowerUp;
+import game.Entities.StaticEntities.Wall;
 import javafx.scene.image.Image;
 
 public abstract class Entity {
@@ -16,6 +21,16 @@ public abstract class Entity {
 
     public abstract void update();
     public abstract void setState(Object entityState);
+    public abstract void relayCollision(Entity e, double oldLeft, double oldRight, double oldTop, double oldBot, double tX, double tY);
+    public void respondToCollisionWithBall(Ball e, double oldLeft, double oldRight, double oldTop, double oldBot, double tX, double tY) {}
+    public void respondToCollisionWithWall(Wall e, double oldLeft, double oldRight, double oldTop, double oldBot, double tX, double tY) {}
+    public void respondToCollisionWithBrick(Brick e, double oldLeft, double oldRight, double oldTop, double oldBot, double tX, double tY) {}
+    public void respondToCollisionWithPaddle(Paddle e, double oldLeft, double oldRight, double oldTop, double oldBot, double tX, double tY) {}
+    public void respondToCollisionWithPowerUp(PowerUp e, double oldLeft, double oldRight, double oldTop, double oldBot, double tX, double tY) {}
+
+    public void incrementFrameCounter(int limit) {
+        frameCounter = (frameCounter + 1) % limit;
+    }
 
     public Image getSprite() {
         return sprite;
@@ -53,11 +68,12 @@ public abstract class Entity {
         return y + h;
     }
 
-    public double[] getCenter() {
-        double[] center = new double[2];
-        center[0] = x + w / 2;
-        center[1] = y + h / 2;
-        return center;
+    public double getXCenter() {
+        return x + w / 2;
+    }
+
+    public double getYCenter() {
+        return y + h / 2;
     }
 
     public int getFrameCounter() {
@@ -91,9 +107,5 @@ public abstract class Entity {
     public void setCurrentSprite(SpriteUtil u) {
         setSprite(u.sprites[frameCounter / u.duration]);
         incrementFrameCounter(u.sprites.length * u.duration);
-    }
-
-    public void incrementFrameCounter(int limit) {
-        frameCounter = (frameCounter + 1) % limit;
     }
 }
